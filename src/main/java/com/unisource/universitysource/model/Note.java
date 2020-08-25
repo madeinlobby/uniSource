@@ -1,9 +1,5 @@
 package com.unisource.universitysource.model;
 
-import org.hibernate.annotations.Cascade;
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
-
 import javax.persistence.*;
 import java.util.List;
 
@@ -16,14 +12,14 @@ public class Note {
     private int noteId;
 
     @ManyToOne
-    @JoinColumn(name = "course", referencedColumnName = "course_id", foreignKey = @ForeignKey(name = "FK_Note_Course"),nullable = false)
+    @JoinColumn(name = "course", referencedColumnName = "course_id", foreignKey = @ForeignKey(name = "FK_Note_Course"), nullable = false)
     private Course course;
 
     @Column(name = "writer")
     private String writer;
 
     @ManyToOne
-    @JoinColumn(name = "uploader", referencedColumnName = "user_id", foreignKey = @ForeignKey(name = "FK_Note_Uploader"),nullable = false)
+    @JoinColumn(name = "uploader", referencedColumnName = "user_id", foreignKey = @ForeignKey(name = "FK_Note_Uploader"), nullable = false)
     private User uploader;
 
     @Lob
