@@ -11,14 +11,14 @@ public class Note {
     @Column(name = "note_id", nullable = false, unique = true)
     private int noteId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course", referencedColumnName = "course_id", foreignKey = @ForeignKey(name = "FK_Note_Course"), nullable = false)
     private Course course;
 
     @Column(name = "writer")
     private String writer;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "uploader", referencedColumnName = "user_id", foreignKey = @ForeignKey(name = "FK_Note_Uploader"), nullable = false)
     private User uploader;
 

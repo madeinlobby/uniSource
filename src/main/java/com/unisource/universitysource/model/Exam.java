@@ -12,11 +12,11 @@ public class Exam {
     @Column(name = "exam_id", nullable = false, unique = true)
     private int examId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "course", referencedColumnName = "course_id", foreignKey = @ForeignKey(name = "FK_Exam_Course"), nullable = false)
     private Course course;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "uploader", referencedColumnName = "user_id", foreignKey = @ForeignKey(name = "FK_Exam_Uploader"), nullable = false)
     private User uploader;
 
