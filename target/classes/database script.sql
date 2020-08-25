@@ -22,7 +22,7 @@ create table `user`(
 create table course(
 	course_id 	int		not null	auto_increment	unique,
     `name`		varchar(120) charset utf8	not null,
-    course_code		varchar(50)	charset utf8	not null unique,
+    course_code		varchar(50)	charset utf8	not null,
     modification_date	datetime	not null	default (NOW()),
     constraint	PK_Course_CourseID	primary key(course_id)
 );
