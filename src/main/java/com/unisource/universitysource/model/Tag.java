@@ -1,8 +1,19 @@
 package com.unisource.universitysource.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "tag")
 public class Tag {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "tag_id", nullable = false, unique = true)
     private int tagId;
+
+    @Column(name = "name", nullable = false)
     private String tagName;
+
+    @Column(name = "color", nullable = false)
     private String color;
 
     public Tag(String tagName, String color) {
