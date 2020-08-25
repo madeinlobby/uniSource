@@ -1,19 +1,20 @@
 package com.unisource.universitysource.model;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Exam {
     private int examId;
     private Course course;
-    private String writer;
     private User uploader;
+    private LocalDate date;
     private List<Tag> tags;
     private byte[] file;
 
-    public Exam(Course course, String writer, User uploader, List<Tag> tags, byte[] file) {
+    public Exam(Course course, User uploader, LocalDate date, List<Tag> tags, byte[] file) {
         this.course = course;
-        this.writer = writer;
         this.uploader = uploader;
+        this.date = date;
         this.tags = tags;
         this.file = file;
     }
@@ -38,12 +39,12 @@ public class Exam {
         this.course = course;
     }
 
-    public String getWriter() {
-        return writer;
+    public LocalDate getDate() {
+        return date;
     }
 
-    public void setWriter(String writer) {
-        this.writer = writer;
+    public void setDate(LocalDate date) {
+        this.date = date;
     }
 
     public User getUploader() {
