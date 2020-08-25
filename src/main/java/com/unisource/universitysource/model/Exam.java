@@ -1,17 +1,17 @@
 package com.unisource.universitysource.model;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class Exam {
     private int examId;
     private Course course;
     private User uploader;
-    private LocalDate date;
+    private LocalDateTime date;
     private List<Tag> tags;
     private byte[] file;
 
-    public Exam(Course course, User uploader, LocalDate date, List<Tag> tags, byte[] file) {
+    public Exam(Course course, User uploader, LocalDateTime date, List<Tag> tags, byte[] file) {
         this.course = course;
         this.uploader = uploader;
         this.date = date;
@@ -39,11 +39,11 @@ public class Exam {
         this.course = course;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
