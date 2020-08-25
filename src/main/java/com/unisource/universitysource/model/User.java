@@ -1,15 +1,25 @@
 package com.unisource.universitysource.model;
 
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "user")
 public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id", nullable = false, unique = true)
     private int userId;
+
+    @Column(name = "username", nullable = false, unique = true)
     private String userName;
+
+    @Column(name = "password", nullable = false)
     private String password;
+
+    @Column(name = "firstname")
     private String firstName;
+
+    @Column(name = "lastname")
     private String lastName;
 
     public User(String userName, String password, String firstName, String lastName) {
