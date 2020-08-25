@@ -5,8 +5,7 @@ import com.unisource.universitysource.model.Course;
 import java.util.List;
 
 public class CourseService {
-    public List<Course> getAllCourses(){
-
+    public List<Course> getAllCourses(String map){
     }
     public void addCourse(Course newCourse){
 
