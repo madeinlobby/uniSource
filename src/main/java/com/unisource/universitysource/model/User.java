@@ -1,5 +1,10 @@
 package com.unisource.universitysource.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "user")
 public class User {
     private int userId;
     private String userName;
