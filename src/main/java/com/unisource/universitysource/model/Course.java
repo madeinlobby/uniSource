@@ -1,8 +1,19 @@
 package com.unisource.universitysource.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "course")
 public class Course {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "course_id", nullable = false, unique = true)
     private int courseId;
+
+    @Column(name = "name", nullable = false)
     private String courseName;
+
+    @Column(name = "course_code", nullable = false, unique = true)
     private String courseCode;
 
     public Course(String courseName, String courseCode) {

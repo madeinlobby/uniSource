@@ -1,13 +1,40 @@
 package com.unisource.universitysource.model;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
+@Table(name = "note")
 public class Note {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "note_id", nullable = false, unique = true)
     private int noteId;
+
+    @ManyToOne
+    @JoinColumn(name = "course", referencedColumnName = "course_id", foreignKey = @ForeignKey(name = "FK_Note_Course"),nullable = false)
     private Course course;
+
+    @Column(name = "writer")
     private String writer;
+
+    @ManyToOne
+    @JoinColumn(name = "uploader", referencedColumnName = "user_id", foreignKey = @ForeignKey(name = "FK_Note_Uploader"),nullable = false)
     private User uploader;
+
+    @Lob
+    @Column(name = "file", columnDefinition = "longblob")
     private byte[] file;
+
+    @ManyToMany
+    @JoinTable(
+            name = "note_tag",
+            joinColumns = @JoinColumn(name = "note"),
+            inverseJoinColumns = @JoinColumn(name = "tag"))
     private List<Tag> tags;
 
     public Note(Course course, String writer, User uploader, byte[] file, List<Tag> tags) {
