@@ -1,14 +1,14 @@
 package com.unisource.universitysource.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class OnlineExam {
-    private int onlineCourseId;
+    private int onlineExamId;
     private Course course;
-    private ArrayList<Question> questions;
-    private ArrayList<Tag> tags;
+    private List<Question> questions;
+    private List<Tag> tags;
 
-    public OnlineExam(Course course, ArrayList<Question> questions, ArrayList<Tag> tags) {
+    public OnlineExam(Course course, List<Question> questions, List<Tag> tags) {
         this.course = course;
         this.questions = questions;
         this.tags = tags;
@@ -18,12 +18,12 @@ public class OnlineExam {
 
     }
 
-    public int getOnlineCourseId() {
-        return onlineCourseId;
+    public int getOnlineExamId() {
+        return onlineExamId;
     }
 
-    public void setOnlineCourseId(int onlineCourseId) {
-        this.onlineCourseId = onlineCourseId;
+    public void setOnlineExamId(int onlineExamId) {
+        this.onlineExamId = onlineExamId;
     }
 
     public Course getCourse() {
@@ -34,19 +34,19 @@ public class OnlineExam {
         this.course = course;
     }
 
-    public ArrayList<Question> getQuestions() {
+    public List<Question> getQuestions() {
         return questions;
     }
 
-    public void setQuestions(ArrayList<Question> questions) {
+    public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
 
-    public ArrayList<Tag> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(ArrayList<Tag> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 }

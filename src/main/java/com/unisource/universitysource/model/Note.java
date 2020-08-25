@@ -1,6 +1,6 @@
 package com.unisource.universitysource.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Note {
     private int noteId;
@@ -8,9 +8,9 @@ public class Note {
     private String writer;
     private User uploader;
     private byte[] file;
-    private ArrayList<Tag> tags;
+    private List<Tag> tags;
 
-    public Note(Course course, String writer, User uploader, byte[] file, ArrayList<Tag> tags) {
+    public Note(Course course, String writer, User uploader, byte[] file, List<Tag> tags) {
         this.course = course;
         this.writer = writer;
         this.uploader = uploader;
@@ -62,11 +62,11 @@ public class Note {
         this.file = file;
     }
 
-    public ArrayList<Tag> getTags() {
+    public List<Tag> getTags() {
         return tags;
     }
 
-    public void setTags(ArrayList<Tag> tags) {
+    public void setTags(List<Tag> tags) {
         this.tags = tags;
     }
 }
