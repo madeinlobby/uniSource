@@ -1,10 +1,26 @@
 package com.unisource.universitysource.model;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "question")
 public class Question {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "question_id", nullable = false, unique = true)
     private int questionId;
+
+    @Column(name = "question_text", columnDefinition = "TEXT")
     private String questionText;
+
+    @Column(name = "answer", columnDefinition = "TEXT")
     private String answer;
+
+    @Column(name = "contributor", nullable = false)
     private String contributor;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "question_type", nullable = false)
     private ExamQuestionsType type;
 
     public Question(String questionText, String answer, String contributor, ExamQuestionsType type) {
