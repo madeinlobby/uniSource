@@ -5,7 +5,9 @@ import com.unisource.universitysource.model.Note;
 import com.unisource.universitysource.repository.NoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class NoteService {
     @Autowired
@@ -22,5 +24,10 @@ public class NoteService {
     }
     public void deleteNoteById(int noteId){
        noteRepository.deleteById(noteId);
+    }
+    public List<Note> getAllNotes(Map filters){
+        ArrayList<Note> notes = new ArrayList<>();
+        noteRepository.findAll().forEach(notes::add);
+        return notes;
     }
 }
