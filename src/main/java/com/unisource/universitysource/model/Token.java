@@ -18,6 +18,7 @@ public class Token {
     @JoinColumn(nullable = false, name = "user", foreignKey = @ForeignKey(name = "FK_Token_User"))
     private User user;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "expiry_time", nullable = false)
     private Date expiryDate;
 

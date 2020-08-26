@@ -2,6 +2,7 @@ package com.unisource.universitysource.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 @Entity
@@ -20,8 +21,9 @@ public class Exam {
     @JoinColumn(name = "uploader", referencedColumnName = "user_id", foreignKey = @ForeignKey(name = "FK_Exam_Uploader"), nullable = false)
     private User uploader;
 
+    @Temporal(TemporalType.TIMESTAMP)
     @Column(name = "exam_date", nullable = false)
-    private LocalDateTime date;
+    private Date date;
 
     @ManyToMany
     @JoinTable(
@@ -34,7 +36,7 @@ public class Exam {
     @Column(name = "file", columnDefinition = "longblob")
     private byte[] file;
 
-    public Exam(Course course, User uploader, LocalDateTime date, List<Tag> tags, byte[] file) {
+    public Exam(Course course, User uploader, Date date, List<Tag> tags, byte[] file) {
         this.course = course;
         this.uploader = uploader;
         this.date = date;
@@ -62,11 +64,11 @@ public class Exam {
         this.course = course;
     }
 
-    public LocalDateTime getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 
