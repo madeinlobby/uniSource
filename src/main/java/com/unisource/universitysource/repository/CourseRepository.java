@@ -9,7 +9,7 @@ import java.util.Map;
 
 @Repository
 public interface CourseRepository extends CrudRepository<Course, Integer> {
-    List<Course> getAllCourseWithFilter(Map<String, String> maps);
+    //List<Course> getAllCourseWithFilter(Map<String, String> maps);
     void deleteByCourseName(String courseName);
     void deleteByCourseCode(String courseCode);
     Course findByCourseCode(String courseCode);

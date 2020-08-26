@@ -32,7 +32,7 @@ public class UserService {
     }
 
     public User getUserByName(String name) {
-        return userRepository.findByName_UserName(name);
+        return userRepository.findByUserName(name);
     }
 
 

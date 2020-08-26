@@ -13,7 +13,7 @@ public class TagService {
 
     }
     public void deleteTagByName(String tagName){
-        tagRepository.deleteTagByName(tagName);
+        tagRepository.deleteByTagName(tagName);
     }
     public void deleteTagById(int id){
         tagRepository.deleteById(id);
@@ -23,7 +23,7 @@ public class TagService {
 
     }
     public Tag getSingleTagByName(String name){
-        return tagRepository.findByName_TagName(name);
+        return tagRepository.findByTagName(name);
     }
     public Tag getSingleTagById(int id){
         return tagRepository.findById(id).get();

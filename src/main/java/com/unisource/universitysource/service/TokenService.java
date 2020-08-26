@@ -12,10 +12,10 @@ import java.util.Date;
 public class TokenService {
     @Autowired
     private TokenRepository tokenRepository;
-
+/*
     @Scheduled(cron = "${purge.cron.expression}")
     public void purgeExpired() {
         Date now = Date.from(Instant.now());
         tokenRepository.deleteByExpiryDateLessThan(now);
-    }
+    }*/
 }

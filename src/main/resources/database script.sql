@@ -93,7 +93,7 @@ create table exam(
 	exam_id		int		not null	auto_increment	unique,
 	course		int		not null,
     uploader	int		not null,
-    exam_date	timestamp	not null,
+    exam_date	datetime	not null,
     `file`		longblob	not null,
     modification_date	timestamp	not null	default CURRENT_TIMESTAMP,
     constraint	PK_Exam_ExamID	primary key(exam_id),
