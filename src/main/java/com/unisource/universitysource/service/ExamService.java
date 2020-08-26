@@ -1,10 +1,13 @@
 package com.unisource.universitysource.service;
 
 import com.unisource.universitysource.model.Exam;
+import com.unisource.universitysource.model.Note;
 import com.unisource.universitysource.repository.ExamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 public class ExamService {
     @Autowired
@@ -23,6 +26,11 @@ public class ExamService {
     public void deleteExamById(int examId){
         examRepository.deleteById(examId);
 
+    }
+    public List<Exam> getAllExams(Map filters){
+        ArrayList<Exam> exams = new ArrayList<>();
+        examRepository.findAll().forEach(exams::add);
+        return exams;
     }
 
 
