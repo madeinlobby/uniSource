@@ -14,6 +14,8 @@ create table `user`(
     username		varchar(100) charset utf8	not null unique,
 	firstname	varchar(120) charset utf8	null,
 	lastname		varchar(120) charset utf8	null,
+    enabled		boolean		not null,
+    authority	varchar(50)		charset utf8	not null,
     `password`		varchar(128) charset utf8		not null,
 	modification_date	datetime	not null	default NOW(),
     constraint	PK_User_UserID	primary key(user_id)
@@ -117,3 +119,5 @@ create table token(
     constraint PK_Token_TokenId     primary key(id),
     constraint FK_Token_User	foreign key(user)	references `user`(user_id) on update cascade on delete cascade
 );
+
+drop database university_source;

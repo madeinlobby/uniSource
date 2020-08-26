@@ -22,6 +22,12 @@ public class User {
     @Column(name = "lastname")
     private String lastName;
 
+    @Column(name = "enabled", columnDefinition = "boolean", nullable = false)
+    private boolean enabled;
+
+    @Column(name = "authority", nullable = false)
+    private String role;
+
     public User(String userName, String password, String firstName, String lastName) {
         this.userName = userName;
         this.password = password;
@@ -71,5 +77,21 @@ public class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }
