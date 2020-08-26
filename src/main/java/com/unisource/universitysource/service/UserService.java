@@ -1,12 +1,8 @@
 package com.unisource.universitysource.service;
 
-import com.unisource.universitysource.model.Course;
 import com.unisource.universitysource.model.*;
 import com.unisource.universitysource.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-
-import java.util.List;
-import java.util.Map;
 
 public class UserService {
     @Autowired
@@ -32,7 +28,7 @@ public class UserService {
     }
 
     public User getUserByName(String name) {
-        return userRepository.findByUserName(name);
+        return userRepository.findByUserName(name).get();
     }
 
 
