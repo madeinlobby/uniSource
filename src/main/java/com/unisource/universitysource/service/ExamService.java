@@ -1,20 +1,27 @@
 package com.unisource.universitysource.service;
 
 import com.unisource.universitysource.model.Exam;
+import com.unisource.universitysource.repository.ExamRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
 public class ExamService {
+    @Autowired
+    private ExamRepository examRepository;
     public List<Exam> getAllExamOfSpecialCourse(int courseId){
-
+        return examRepository.findAllByCourse_CourseId(courseId);
     }
     public Exam getSingleExam(int examId){
+        return examRepository.findById(examId).get();
 
     }
     public void addExam(Exam newExam){
+        examRepository.save(newExam);
 
     }
     public void deleteExamById(int examId){
+        examRepository.deleteById(examId);
 
     }
 
