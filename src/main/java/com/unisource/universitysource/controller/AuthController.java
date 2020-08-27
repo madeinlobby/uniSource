@@ -13,7 +13,7 @@ import java.util.Map;
 @RestController
 public class AuthController {
     private UserService userService;
-    @PostMapping(/*address*/)
+    //@PostMapping(/*address*/)
     public ResponseEntity<String> register(@RequestBody Map body) {
         //TODO no idea of
         String username = null;// = username

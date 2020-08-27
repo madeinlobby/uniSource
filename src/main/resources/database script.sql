@@ -5,7 +5,7 @@ Create date:     <25 Aug 2020>
 Description:     <University online source - Automation Online Source - System version>
 # =================================================================
 **/
-use sql9362322;
+use university_source;
 
 create table `user`(
 	user_id		int		not null	auto_increment	unique,

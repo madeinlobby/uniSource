@@ -4,9 +4,10 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class CustomUserDetail implements UserDetails {
     private String userName;
@@ -18,7 +19,9 @@ public class CustomUserDetail implements UserDetails {
         this.userName = user.getUserName();
         this.password = user.getPassword();
         this.active = user.isEnabled();
-        this.authorities = Collections.singletonList(new SimpleGrantedAuthority(user.getRole()));
+        this.authorities = Arrays.stream(user.getRole().split(","))
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
     public CustomUserDetail() {

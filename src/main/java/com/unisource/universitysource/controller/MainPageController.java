@@ -19,14 +19,14 @@ public class MainPageController {
     private NoteService noteService;
     private ExamService examService;
 
-    @PostMapping(/*address*/)
+    //@PostMapping(/*address*/)
     public ResponseEntity<List<Note>> getAllNotesWithFilter(@RequestBody Map body) {
         //TODO list addign fiters to respond
         Map<String, String> filter = new HashMap<>();
         return new ResponseEntity<>(noteService.getAllNotes(filter), HttpStatus.OK);
     }
 
-    @PostMapping(/*address*/)
+    //@PostMapping(/*address*/)
     public ResponseEntity<List<Exam>> getAllExamsWithFilter(@RequestBody Map body) {
         //TODO list addign fiters to respond
         Map<String, String> filter = new HashMap<>();
