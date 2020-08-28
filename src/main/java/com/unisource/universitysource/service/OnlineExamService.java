@@ -4,9 +4,11 @@ import com.unisource.universitysource.model.Exam;
 import com.unisource.universitysource.model.OnlineExam;
 import com.unisource.universitysource.repository.OnlineExamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class OnlineExamService {
     @Autowired
     private OnlineExamRepository onlineExamRepository;

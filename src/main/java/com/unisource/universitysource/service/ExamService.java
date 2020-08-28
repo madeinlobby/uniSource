@@ -4,11 +4,13 @@ import com.unisource.universitysource.model.Exam;
 import com.unisource.universitysource.model.Note;
 import com.unisource.universitysource.repository.ExamRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Service
 public class ExamService {
     @Autowired
     private ExamRepository examRepository;

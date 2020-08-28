@@ -3,7 +3,9 @@ package com.unisource.universitysource.service;
 import com.unisource.universitysource.model.*;
 import com.unisource.universitysource.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class UserService {
     @Autowired
     UserRepository userRepository;
@@ -30,5 +32,7 @@ public class UserService {
         return userRepository.findByUserName(name).get();
     }
 
-
+    public Boolean existUserByUsername(String username) {
+        return userRepository.existsByUserName(username);
+    }
 }

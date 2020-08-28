@@ -3,7 +3,9 @@ package com.unisource.universitysource.service;
 import com.unisource.universitysource.model.Tag;
 import com.unisource.universitysource.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class TagService {
     @Autowired
     private TagRepository tagRepository;
