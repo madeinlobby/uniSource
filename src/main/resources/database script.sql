@@ -13,10 +13,23 @@ create table `user`(
 	firstname	varchar(120) charset utf8	null,
 	lastname		varchar(120) charset utf8	null,
     enabled		boolean		not null,
-    authority	varchar(50)		charset utf8	not null,
     `password`		varchar(128) charset utf8		not null,
 	modification_date	timestamp	not null	default CURRENT_TIMESTAMP,
     constraint	PK_User_UserID	primary key(user_id)
+);
+
+create table role(
+	role_id		int		not null	auto_increment	unique,
+    `name`	enum('ROLE_USER', 'ROLE_MODERATOR', 'ROLE_ADMIN')		not null,
+    constraint	PK_Role_RoleID	primary key(role_id)
+);
+
+create table user_role(
+	user_id		int		not null,
+    role_id		int		not null,
+    constraint FK_User_Role_UserID	foreign key(user_id)	references `user`(user_id) on update cascade on delete cascade,
+    constraint FK_User_Role_RoleID	foreign key(role_id)	references role(role_id)	on update cascade on delete cascade,
+    constraint PK_User_Role_UserID_RoleID		primary key(user_id, role_id)
 );
 
 create table course(
@@ -108,7 +121,7 @@ create table exam_tag(
     constraint FK_Exam_Tag_TagID	foreign key(tag)	references tag(tag_id)	on update cascade on delete cascade,
     constraint PK_Exam_Tag_ExamID_TagID		primary key(exam, tag)
 );
-
+/*
 create table token(
     id      bigint  not null auto_increment    unique,
     token   varchar(50) charset utf8	not null,
@@ -117,3 +130,4 @@ create table token(
     constraint PK_Token_TokenId     primary key(id),
     constraint FK_Token_User	foreign key(user)	references `user`(user_id) on update cascade on delete cascade
 );
+ */

@@ -1,6 +1,8 @@
 package com.unisource.universitysource.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "user")
@@ -25,18 +27,22 @@ public class User {
     @Column(name = "enabled", columnDefinition = "boolean", nullable = false)
     private boolean enabled;
 
-    @Column(name = "authority", nullable = false)
-    private String role;
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Set<Role> roles;
 
     public User(String userName, String password, String firstName, String lastName) {
         this.userName = userName;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.roles = new HashSet<>();
     }
 
     public User() {
-
+        this.roles = new HashSet<>();
     }
 
     public int getUserId() {
@@ -87,11 +93,11 @@ public class User {
         this.enabled = enabled;
     }
 
-    public String getRole() {
-        return role;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 }
