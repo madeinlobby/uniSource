@@ -5,7 +5,7 @@ Create date:     <25 Aug 2020>
 Description:     <University online source - Automation Online Source - System version>
 # =================================================================
 **/
-use sql9362322;
+use university_source;
 
 create table `user`(
 	user_id		int		not null	auto_increment	unique,
@@ -117,3 +117,6 @@ create table token(
     constraint PK_Token_TokenId     primary key(id),
     constraint FK_Token_User	foreign key(user)	references `user`(user_id) on update cascade on delete cascade
 );
+
+insert into user(username, firstname, lastname, enabled, authority, password)	values('admin', 'sadegh', 'majidi', true, 'ADMIN', '1234');
+insert into user(username, firstname, lastname, enabled, authority, password)	values('user', 'arya', 'jalali', true, 'USER', '1234');
