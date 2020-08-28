@@ -40,9 +40,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(authEntryPointJwt).and()
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
-                //.antMatchers("/admin").hasAuthority("ADMIN")
-                //.antMatchers("/user").hasAnyAuthority("USER", "ADMIN")
-                .antMatchers("/").permitAll().anyRequest().authenticated();
+                .antMatchers("/auth/**").permitAll()
+                .antMatchers("/test/**").permitAll()
+                .anyRequest().authenticated();
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
     }
 
