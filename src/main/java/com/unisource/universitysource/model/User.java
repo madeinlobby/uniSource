@@ -27,7 +27,7 @@ public class User {
     @Column(name = "enabled", columnDefinition = "boolean", nullable = false)
     private boolean enabled;
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -38,6 +38,7 @@ public class User {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.enabled = true;
         this.roles = new HashSet<>();
     }
 

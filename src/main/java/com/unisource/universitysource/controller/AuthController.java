@@ -49,7 +49,7 @@ public class AuthController {
             return ResponseEntity.badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
-        User user = new User(registerRequest.getUsername(), registerRequest.getPassword(), registerRequest.getFirstname(), registerRequest.getLastname());
+        User user = new User(registerRequest.getUsername(), encoder.encode(registerRequest.getPassword()), registerRequest.getFirstname(), registerRequest.getLastname());
         Set<String> strRoles = registerRequest.getRoles();
         Set<Role> roles = new HashSet<>();
         if (strRoles == null) {
@@ -72,6 +72,7 @@ public class AuthController {
                         roles.add(moderatorRole);
                         break;
                     default:
+                        System.out.println(123);
                         Role userRole = roleRepository.findByName(RoleEnum.ROLE_USER).orElseThrow(
                                 () -> new RuntimeException("Error: Role is not found.")
                         );
