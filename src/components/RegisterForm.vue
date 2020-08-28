@@ -9,10 +9,11 @@
                     <b-form-input
                             id="input-live"
                             v-model="username"
-                            :state="usernameAvailability"
+                            :state="usernametest"
                             aria-describedby="input-live-help input-live-feedback"
                             placeholder="Enter your name"
                             trim
+                            @change="checkUsername"
                     ></b-form-input>
                     <b-form-invalid-feedback id="input-live-feedback">
                         Username is taken
@@ -92,7 +93,8 @@
                 firstName: '',
                 lastName: '',
                 password: '',
-                repeatedPassword: ''
+                repeatedPassword: '',
+                usernametest: false
 
             }
         }, computed: {
@@ -100,11 +102,6 @@
                 return this.firstName.length > 2 ? true : false
             }, lastNameState() {
                 return this.lastName.length > 2 ? true : false
-            }
-            ,
-            usernameAvailability() {
-                return false;
-                //todo
             },
             checkPassword() {
                 return true;
@@ -113,9 +110,15 @@
         },
         methods : {
             getShit() {
-                fetch("https://api.npms.io/v2/search?q=vue")
+                fetch("http://localhost:8081/auth/check-username/mamad")
                     .then(response => response.json())
-                    .then(data => (console.log(data.total)));
+                    .then(response => console.log(response));
+            },
+            checkUsername() {
+                console.log(12);
+                fetch(`http://localhost:8081/auth/check-username/${this.username}`)
+                    .then(response => response.json())
+                    .then(response => this.usernametest = response);
             }
         }
     }
