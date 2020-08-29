@@ -69,7 +69,6 @@ public class AuthController {
                         roles.add(moderatorRole);
                         break;
                     default:
-                        System.out.println(123);
                         Role userRole = roleRepository.findByName(RoleEnum.ROLE_USER).orElseThrow(
                                 () -> new RuntimeException("Error: Role is not found.")
                         );
@@ -90,19 +89,17 @@ public class AuthController {
                     new UsernamePasswordAuthenticationToken(authenticationRequest.getUsername(), authenticationRequest.getPassword())
             );
         } catch (BadCredentialsException exception) {
-           return ResponseEntity.badRequest().body(new MessageResponse("Bad Credentials entered"));
+            return ResponseEntity.badRequest().body(new MessageResponse("Bad Credentials entered"));
         }
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = jwtUtil.generateToken(userDetails);
         return ResponseEntity.ok(new AuthenticationResponse(jwt));
     }
+
     @GetMapping("/check-username/{username}")
-    public Boolean checkUserName(@PathVariable String username ){
-        if (userService.existUserByUsername(username)) {
-           return false;
-        }
-        return true;
+    public Boolean checkUserName(@PathVariable String username) {
+        return !userService.existUserByUsername(username);
     }
 
 }

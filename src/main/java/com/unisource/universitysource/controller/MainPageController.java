@@ -2,7 +2,6 @@ package com.unisource.universitysource.controller;
 
 import com.unisource.universitysource.model.Exam;
 import com.unisource.universitysource.model.Note;
-import com.unisource.universitysource.repository.ExamRepository;
 import com.unisource.universitysource.service.ExamService;
 import com.unisource.universitysource.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +15,10 @@ import java.util.Map;
 
 @RestController
 public class MainPageController {
+    @Autowired
     private NoteService noteService;
+
+    @Autowired
     private ExamService examService;
 
     //@PostMapping(/*address*/)

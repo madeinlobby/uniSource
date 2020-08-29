@@ -6,7 +6,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TagRepository extends CrudRepository<Tag, Integer> {
-     Tag findByTagName(String name);
-     void deleteByTagName(String tagName);
+    Tag findByTagName(String name);
 
+    void deleteByTagName(String tagName);
 }

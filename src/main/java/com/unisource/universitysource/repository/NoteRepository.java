@@ -1,6 +1,5 @@
 package com.unisource.universitysource.repository;
 
-import com.unisource.universitysource.model.Exam;
 import com.unisource.universitysource.model.Note;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;

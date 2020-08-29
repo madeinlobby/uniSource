@@ -10,26 +10,27 @@ public class TagService {
     @Autowired
     private TagRepository tagRepository;
 
-    public void addTag(Tag tag){
+    public void addTag(Tag tag) {
         tagRepository.save(tag);
-
     }
-    public void deleteTagByName(String tagName){
+
+    public void deleteTagByName(String tagName) {
         tagRepository.deleteByTagName(tagName);
     }
-    public void deleteTagById(int id){
+
+    public void deleteTagById(int id) {
         tagRepository.deleteById(id);
     }
-    public void editTag(Tag newTag){
-        tagRepository.save(newTag);
 
+    public void editTag(Tag newTag) {
+        tagRepository.save(newTag);
     }
-    public Tag getSingleTagByName(String name){
+
+    public Tag getSingleTagByName(String name) {
         return tagRepository.findByTagName(name);
     }
-    public Tag getSingleTagById(int id){
+
+    public Tag getSingleTagById(int id) {
         return tagRepository.findById(id).get();
-
-
     }
 }

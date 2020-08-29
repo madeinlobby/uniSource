@@ -9,13 +9,16 @@ import org.springframework.stereotype.Service;
 public class QuestionService {
     @Autowired
     QuestionRepository questionRepository;
-    public Question getById(int id){
-       return questionRepository.findById(id).get();
+
+    public Question getById(int id) {
+        return questionRepository.findById(id).get();
     }
-    public void edit(Question question){
+
+    public void edit(Question question) {
         questionRepository.save(question);
     }
-    public void deleteById(int id){
+
+    public void deleteById(int id) {
         questionRepository.deleteById(id);
     }
 

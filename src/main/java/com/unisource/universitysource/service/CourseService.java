@@ -13,36 +13,37 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
-    public List<Course> getAllCourses(){
+    public List<Course> getAllCourses() {
         List<Course> courses = new ArrayList<>();
         courseRepository.findAll().forEach(courses::add);
         return courses;
     }
-    public void addCourse(Course newCourse){
+
+    public void addCourse(Course newCourse) {
         courseRepository.save(newCourse);
     }
 
-    public void deleteCourseById(int id){
+    public void deleteCourseById(int id) {
         courseRepository.deleteById(id);
     }
 
-    public void deleteCourseByCourseName(String name){
+    public void deleteCourseByCourseName(String name) {
         courseRepository.deleteByCourseName(name);
     }
 
-    public void deleteCourseByCourseCode(String code){
+    public void deleteCourseByCourseCode(String code) {
         courseRepository.deleteByCourseCode(code);
     }
 
-    public void edit(int id, Course newCourse){
+    public void edit(int id, Course newCourse) {
         courseRepository.save(newCourse);
     }
 
-    public Course getSingleCourseById(int id){
+    public Course getSingleCourseById(int id) {
         return courseRepository.findById(id).get();
     }
 
-    public Course getSingleCourseByCourseCode(String code){
+    public Course getSingleCourseByCourseCode(String code) {
         return courseRepository.findByCourseCode(code);
     }
 }

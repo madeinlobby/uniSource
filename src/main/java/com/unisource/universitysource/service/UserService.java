@@ -19,13 +19,11 @@ public class UserService {
     }
 
     public void deleteUserById(int id) {
-
         userRepository.deleteById(id);
     }
 
     public User getUserById(int id) {
         return userRepository.findById(id).get();
-
     }
 
     public User getUserByName(String name) {
