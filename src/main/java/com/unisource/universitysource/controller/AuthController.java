@@ -1,6 +1,7 @@
 package com.unisource.universitysource.controller;
 
 import com.unisource.universitysource.model.*;
+import com.unisource.universitysource.repository.BlackListTokenRepository;
 import com.unisource.universitysource.repository.RoleRepository;
 import com.unisource.universitysource.service.CustomUserDetailService;
 import com.unisource.universitysource.service.UserService;
@@ -36,6 +37,9 @@ public class AuthController {
 
     @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    private BlackListTokenRepository blackListTokenRepository;
 
     @Autowired
     private CustomUserDetailService userDetailsService;
@@ -102,4 +106,14 @@ public class AuthController {
         return !userService.existUserByUsername(username);
     }
 
+    @GetMapping("/logout/{jwt}")
+    public ResponseEntity<?> logout(@PathVariable String jwt) {
+        String username = jwtUtil.extractUsername(jwt);
+        UserDetails userDetail = userDetailsService.loadUserByUsername(username);
+        if (!jwtUtil.validateToken(jwt, userDetail))
+            return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
+        BlackListToken token = new BlackListToken(jwt, jwtUtil.extractExpiration(jwt));
+        blackListTokenRepository.save(token);
+        return ResponseEntity.ok(new MessageResponse("logout successfully."));
+    }
 }

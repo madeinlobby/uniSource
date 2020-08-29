@@ -1,8 +1,10 @@
 package com.unisource.universitysource.utils;
 
+import com.unisource.universitysource.repository.BlackListTokenRepository;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -19,6 +21,9 @@ public class JwtUtil {
 
     @Value("${uniSource.tokenExpirationTime}")
     private int expirationTimMilSecond;
+
+    @Autowired
+    private BlackListTokenRepository blackListTokenRepository;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -55,6 +60,6 @@ public class JwtUtil {
 
     public Boolean validateToken(String token, UserDetails userDetails) {
         final String username = extractUsername(token);
-        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return (username.equals(userDetails.getUsername()) && !isTokenExpired(token) && !blackListTokenRepository.existsByJwt(token));
     }
 }
