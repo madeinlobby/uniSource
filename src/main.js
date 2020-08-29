@@ -2,7 +2,7 @@ import Vue from 'vue'
 import App from './App.vue'
 import VueRouter from 'vue-router'
 import BootstrapVue from 'bootstrap-vue'
-import VueAxios from 'vue-axios'
+
 // Install BootstrapVue
 
 import 'bootstrap/dist/css/bootstrap.css'
@@ -14,6 +14,8 @@ import Home from './components/Home'
 import Login from './components/Login'
 import  Register from './components/Register'
 
+
+window.axios = require('axios');
 
 const routes = [
     { path: '/', component: Home},
@@ -28,7 +30,6 @@ const router = new VueRouter ({
 Vue.config.productionTip = false;
 Vue.use(BootstrapVue);
 Vue.use(VueRouter);
-Vue.use(VueAxios)
 
 
 new Vue({

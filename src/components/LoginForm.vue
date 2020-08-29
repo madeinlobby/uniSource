@@ -4,18 +4,16 @@
             <h3>Login</h3>
             <br>
             <div role="group">
-                <label for="input-live" class="mt-1"><b>Username:</b></label>
+                <label  class="mt-1"><b>Username:</b></label>
                 <b-form-input
-                        id="input-live"
                         v-model="username"
                         aria-describedby="input-live-help input-live-feedback"
                         placeholder="Enter your Username"
                         trim
                 ></b-form-input>
 
-                <label for="input-live" class="mt-2"><b>Password:</b></label>
+                <label class="mt-2"><b>Password:</b></label>
                 <b-form-input
-                        id="input-live"
                         v-model="password"
                         type = "password"
                         aria-describedby="input-live-help input-live-feedback"

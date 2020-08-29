@@ -5,9 +5,8 @@
             <br>
             <div role="group">
                 <div>
-                    <label for="input-live" class="mt-1"><b>Username:</b></label>
+                    <label class="mt-1"><b>Username:</b></label>
                     <b-form-input
-                            id="input-live"
                             v-model="username"
                             :state="usernametest"
                             aria-describedby="input-live-help input-live-feedback"
@@ -21,9 +20,8 @@
                 </div>
 
                 <div>
-                    <label for="input-live" class="mt-2"><b>Name:</b></label>
+                    <label class="mt-2"><b>Name:</b></label>
                     <b-form-input
-                            id="input-live"
                             v-model="firstName"
                             :state="nameState"
                             aria-describedby="input-live-help input-live-feedback"
@@ -37,9 +35,8 @@
                 </div>
 
                 <div>
-                    <label for="input-live" class="mt-2"><b>lastName:</b></label>
+                    <label class="mt-2"><b>lastName:</b></label>
                     <b-form-input
-                            id="input-live"
                             v-model="lastName"
                             :state="lastNameState"
                             aria-describedby="input-live-help input-live-feedback"
@@ -51,33 +48,36 @@
                     </b-form-invalid-feedback>
                 </div>
 
-                <label for="input-live" class="mt-2"><b>Password:</b></label>
+                <label class="mt-2"><b>Password:</b></label>
                 <b-form-input
-                        id="input-live"
                         type="password"
+                        :state="checkPassword"
                         v-model="password"
                         aria-describedby="input-live-help input-live-feedback"
                         placeholder="Password"
                         trim
                 ></b-form-input>
-
-                <label for="input-live" class="mt-2"><b>Confirm your password:</b></label>
-                <b-form-input
-                        id="input-live"
-                        type="password"
-                        v-model="repeatedPassword"
-                        aria-describedby="input-live-help input-live-feedback"
-                        placeholder="Confirm your password."
-                        trim
-                ></b-form-input>
-                <b-button variant="primary" class="mt-3 mb-2" @click="getShit">Sign-up</b-button>
                 <div>
-                    <b-list horizontal="md">
-                        <b-list-item><h6 class="mb-1">Have an account?</h6></b-list-item>
-                        <b-list-item>
-                            <b-link href="#foo">Sign in!</b-link>
-                        </b-list-item>
-                    </b-list>
+                    <label class="mt-2"><b>Confirm your password:</b></label>
+                    <b-form-input
+                            type="password"
+                            :state="checkPassword"
+                            v-model="repeatedPassword"
+                            aria-describedby="input-live-help input-live-feedback"
+                            placeholder="Confirm your password."
+                            trim
+                    ></b-form-input>
+                    <b-form-invalid-feedback id="input-live-feedback">
+                        Your passwords do not match.
+                    </b-form-invalid-feedback>
+                </div>
+                <b-button variant="primary" class="mt-3 mb-2"
+                          :disabled="!(checkPassword && usernametest && nameState && lastNameState)" @click="sign-up">
+                    Sign-up
+                </b-button>
+                <div>
+                    <h6 class="mb-1">Have an account?</h6>
+                    <b-link href="#foo">Sign in!</b-link>
                 </div>
             </div>
         </b-container>
@@ -104,21 +104,15 @@
                 return this.lastName.length > 2 ? true : false
             },
             checkPassword() {
-                return true;
-                //todo
+                return this.password === this.repeatedPassword ? true : false
             }
         },
-        methods : {
-            getShit() {
-                fetch("http://localhost:8081/auth/check-username/mamad")
-                    .then(response => response.json())
-                    .then(response => console.log(response));
-            },
+        methods: {
             checkUsername() {
                 console.log(12);
-                fetch(`http://localhost:8081/auth/check-username/${this.username}`)
-                    .then(response => response.json())
-                    .then(response => this.usernametest = response);
+                // eslint-disable-next-line no-undef
+                axios.get(`http://localhost:8081/auth/check-username/${this.username}`)
+                    .then(response => (this.usernametest = response.data));
             }
         }
     }
