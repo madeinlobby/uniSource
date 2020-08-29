@@ -106,14 +106,27 @@ public class AuthController {
         return !userService.existUserByUsername(username);
     }
 
-    @GetMapping("/logout/{jwt}")
-    public ResponseEntity<?> logout(@PathVariable String jwt) {
+    @GetMapping("/logout")
+    public ResponseEntity<?> logout(@RequestHeader(value = "Authorization") String token) {
+        if (token == null || !token.startsWith("Bearer "))
+            return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
+        String jwt = token.substring(7);
         String username = jwtUtil.extractUsername(jwt);
         UserDetails userDetail = userDetailsService.loadUserByUsername(username);
         if (!jwtUtil.validateToken(jwt, userDetail))
             return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
-        BlackListToken token = new BlackListToken(jwt, jwtUtil.extractExpiration(jwt));
-        blackListTokenRepository.save(token);
+        BlackListToken blackListToken = new BlackListToken(jwt, jwtUtil.extractExpiration(jwt));
+        blackListTokenRepository.save(blackListToken);
         return ResponseEntity.ok(new MessageResponse("logout successfully."));
+    }
+
+    @GetMapping("/check-token")
+    public Boolean checkTokenValidity(@RequestHeader(value = "Authorization") String token) {
+        if (token == null || !token.startsWith("Bearer "))
+            return false;
+        String jwt = token.substring(7);
+        String username = jwtUtil.extractUsername(jwt);
+        UserDetails userDetail = userDetailsService.loadUserByUsername(username);
+        return jwtUtil.validateToken(jwt, userDetail);
     }
 }
