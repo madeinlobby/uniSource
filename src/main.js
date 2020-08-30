@@ -9,21 +9,20 @@ import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 
-
 import Home from './components/Home'
 import Login from './components/Login'
-import  Register from './components/Register'
+import Register from './components/Register'
 
 
 window.axios = require('axios');
 
 const routes = [
-    { path: '/', component: Home},
-    { path: '/login', component: Login},
-    { path: '/sign-up', component: Register}
+    {path: '/', component: Home},
+    {path: '/login', component: Login},
+    {path: '/sign-up', component: Register}
 ];
 
-const router = new VueRouter ({
+const router = new VueRouter({
     routes
 });
 

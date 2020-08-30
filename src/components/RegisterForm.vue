@@ -8,7 +8,7 @@
                     <label class="mt-1"><b>Username:</b></label>
                     <b-form-input
                             v-model="username"
-                            :state="usernametest"
+                            :state="usernameAvailability"
                             aria-describedby="input-live-help input-live-feedback"
                             placeholder="Enter your name"
                             trim
@@ -68,23 +68,25 @@
                             trim
                     ></b-form-input>
                     <b-form-invalid-feedback id="input-live-feedback">
-                        Your passwords do not match.
+                        Something is Wrong.
                     </b-form-invalid-feedback>
                 </div>
                 <b-button variant="primary" class="mt-3 mb-2"
-                          :disabled="!(checkPassword && usernametest && nameState && lastNameState)" @click="sign-up">
+                          :disabled="!(checkPassword && usernameAvailability && nameState && lastNameState)" @click="signUp">
                     Sign-up
                 </b-button>
                 <div>
                     <h6 class="mb-1">Have an account?</h6>
-                    <b-link href="#foo">Sign in!</b-link>
+                    <b-link to="/login">Sign in!</b-link>
                 </div>
             </div>
         </b-container>
     </div>
 </template>
 
+
 <script>
+    import {registerUrl} from '../links.js'
     export default {
         name: "RegisterForm",
         data() {
@@ -94,7 +96,7 @@
                 lastName: '',
                 password: '',
                 repeatedPassword: '',
-                usernametest: false
+                usernameAvailability: false
 
             }
         }, computed: {
@@ -104,6 +106,8 @@
                 return this.lastName.length > 2 ? true : false
             },
             checkPassword() {
+                if(this.password === '')
+                    return false
                 return this.password === this.repeatedPassword ? true : false
             }
         },
@@ -112,7 +116,24 @@
                 console.log(12);
                 // eslint-disable-next-line no-undef
                 axios.get(`http://localhost:8081/auth/check-username/${this.username}`)
-                    .then(response => (this.usernametest = response.data));
+                    .then(response => (this.usernameAvailability = response.data));
+            },
+            signUp() {
+                console.log(registerUrl)
+                // eslint-disable-next-line no-undef
+                axios.post(registerUrl, {
+                    username: this.username,
+                    password: this.password,
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    roles: null
+                }, {
+                    headers: {
+                        'Content-Type': 'application/json'
+
+                    }
+                }).then(response => console.log(response))
+                .catch(err => console.log(err))
             }
         }
     }
