@@ -5,6 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN"
+          crossorigin="anonymous">
     <!-- Bootstrap -->
     <link href="./../css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="./../css/general.css">
@@ -49,48 +51,93 @@
     </div><!-- /.container-fluid -->
 </nav>
 
-<!--<div class="container text-center mx-auto" id="login-box">-->
-<div class="container text-center" id="login-box">
-    <h3 >Login</h3>
-    <br><br>
-    <div>
-        <form class="form">
-            <div class="form-group">
-                <label>Username</label>
-                <input type="text" class="form-control" placeholder="Username">
-            </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" class="form-control" placeholder="Password">
-            </div>
-            <div class="text-left checkbox float-left" style="margin-left: 20px">
-                <input type="checkbox"> Remember me
-            </div>
-            <button type="submit" class="btn btn-primary" style="margin-top: 0">Login</button>
-        </form>
+<main>
+    <!--<div class="container text-center mx-auto" id="login-box">-->
+    <div class="container text-center" id="login-box">
+        <h3 >Login</h3>
+        <br><br>
+        <div>
+            <form class="form">
+                <div class="form-group">
+                    <label>Username</label>
+                    <input type="text" class="form-control" placeholder="Username">
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" class="form-control" placeholder="Password">
+                </div>
+                <div class="text-left checkbox float-left" style="margin-left: 20px">
+                    <input type="checkbox"> Remember me
+                </div>
+                <button type="submit" class="btn btn-primary" style="margin-top: 0">Login</button>
+            </form>
+        </div>
+        <ul class="list-unstyled list-inline text-center py-2" id="register">
+            <li class="list-inline-item">
+                <h5 class="mb-1">Register for free</h5>
+            </li>
+            <li class="list-inline-item">
+                <a href="./sign-up.html" class="btn btn-outline-white btn-rounded">Sign up!</a>
+            </li>
+        </ul>
     </div>
-    <ul class="list-unstyled list-inline text-center py-2" id="register">
-        <li class="list-inline-item">
-            <h5 class="mb-1">Register for free</h5>
-        </li>
-        <li class="list-inline-item">
-            <a href="./sign-up.html" class="btn btn-outline-white btn-rounded">Sign up!</a>
-        </li>
-    </ul>
-</div>
+</main>
 
-<footer class="page-footer font-small unique-color-dark pt-4 fixed-bottom">
+<footer class="site-footer">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12 col-md-6">
+                <h6>About</h6>
+                <p> We were very unemployed and decided to create this site. (Translated By Google Translate)</p>
+            </div>
 
-    <!-- Copyright -->
-    <div class="footer-copyright text-center py-3">© 2020 Copyright:
-        <a href="https://mdbootstrap.com/"> MDBootstrap.com</a>
+            <div class="col-xs-6 col-md-3">
+                <h6>Categories</h6>
+                <ul class="footer-links">
+                    <li><a href="#">C</a></li>
+                    <li><a href="#">UI Design</a></li>
+                    <li><a href="#">PHP</a></li>
+                    <li><a href="#">Java</a></li>
+                    <li><a href="#">Android</a></li>
+                    <li><a href="#">Templates</a></li>
+                </ul>
+            </div>
+
+            <div class="col-xs-6 col-md-3">
+                <h6>Quick Links</h6>
+                <ul class="footer-links">
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact Us</a></li>
+                    <li><a href="#">Contribute</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+        </div>
+        <hr>
     </div>
-    <!-- Copyright -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-sm-6 col-xs-12">
+                <p class="copyright-text">Copyright &copy; 2020 All Rights Reserved by
+                    <a href="#">Ladies Of The Woods</a>.
+                </p>
+            </div>
 
+            <div class="col-md-4 col-sm-6 col-xs-12">
+                <ul class="social-icons">
+                    <li><a class="facebook" href="#"><i class="fa fa-facebook"></i></a></li>
+                    <li><a class="twitter" href="#"><i class="fa fa-twitter"></i></a></li>
+                    <li><a class="dribbble" href="#"><i class="fa fa-dribbble"></i></a></li>
+                    <li><a class="linkedin" href="#"><i class="fa fa-linkedin"></i></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </footer>
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
 <script src="./../js/bootstrap.min.js"></script>
+<script src="./../js/general.js"></script>
 </body>
 </html>
