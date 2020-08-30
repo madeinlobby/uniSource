@@ -50,7 +50,7 @@ public class AuthController {
             return ResponseEntity.badRequest()
                     .body(new MessageResponse("Error: Username is already taken!"));
         }
-        User user = new User(registerRequest.getUsername(), encoder.encode(registerRequest.getPassword()), registerRequest.getFirstname(), registerRequest.getLastname());
+        User user = new User(registerRequest.getUsername(), encoder.encode(registerRequest.getPassword()), registerRequest.getFirstName(), registerRequest.getLastName());
         Set<String> strRoles = registerRequest.getRoles();
         Set<Role> roles = new HashSet<>();
         if (strRoles == null) {
