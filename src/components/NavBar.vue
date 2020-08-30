@@ -7,12 +7,12 @@
 
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
-                    <b-nav-item v-show="!checkLoginStatus" to="/login">Login</b-nav-item>
-                    <b-nav-item v-show="!checkLoginStatus" to="sign-up">Register</b-nav-item>
+                    <b-nav-item v-show="!isUserLoggedIn" to="/login">Login</b-nav-item>
+                    <b-nav-item v-show="!isUserLoggedIn" to="sign-up">Register</b-nav-item>
                 </b-navbar-nav>
 
                 <!-- Right aligned nav items -->
-                <b-navbar-nav v-show="checkLoginStatus" class="ml-auto">
+                <b-navbar-nav v-show="isUserLoggedIn" class="ml-auto">
                     <b-nav-item-dropdown right>
                         <!-- Using 'button-content' slot -->
                         <template v-slot:button-content>
@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import {signOutUrl} from "@/links";
+    import {checkTokenUrl, signOutUrl} from "@/links";
 
     export default {
         name: "NavBar",
@@ -37,14 +37,16 @@
                 isUserLoggedIn : false
             }
         },
-        computed : {
-            checkLoginStatus() {
-                if(sessionStorage.getItem('JWT') !== '') {
-                    return true
-                }else {
-                    return false
+        beforeMount() {
+            // eslint-disable-next-line no-undef
+            axios.get(checkTokenUrl,{
+                headers : {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${sessionStorage.getItem('JWT')}`
                 }
-            }
+            }).then(res => res.data)
+                .then(data => this.isUserLoggedIn = data)
+            .catch(err => console.log(err))
         }, methods: {
             signOut() {
                 // eslint-disable-next-line no-undef
