@@ -12,9 +12,9 @@
                                 v-model="username"
                                 :state="usernameAvailability"
                                 aria-describedby="input-live-help input-live-feedback"
-                                placeholder="Enter your name"
+                                placeholder="Enter your Username"
                                 trim
-                                @change="checkUsername"
+                                v-on:input="checkUsername"
                         ></b-form-input>
                         <b-form-invalid-feedback id="input-live-feedback">
                             Username is taken

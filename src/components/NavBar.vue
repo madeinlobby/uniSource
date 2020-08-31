@@ -1,7 +1,7 @@
 <template>
     <div>
         <b-navbar toggleable="sm" type="dark" variant="dark">
-            <b-navbar-brand to="/">Sharif Source</b-navbar-brand>
+            <b-navbar-brand to="/"><img class="image" src="../assets/Background.jpg" alt="Logo"/></b-navbar-brand>
 
             <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
@@ -69,5 +69,8 @@
 </script>
 
 <style scoped>
-
+.image {
+    width: 150px;
+    height: 40px;
+}
 </style>
