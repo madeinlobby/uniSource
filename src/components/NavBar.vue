@@ -8,7 +8,7 @@
             <b-collapse id="nav-collapse" is-nav>
                 <b-navbar-nav>
                     <b-nav-item v-show="!isUserLoggedIn" to="/login">Login</b-nav-item>
-                    <b-nav-item v-show="!isUserLoggedIn" to="sign-up">Register</b-nav-item>
+                    <b-nav-item v-show="!isUserLoggedIn" :disabled="isUserLoggedIn" to="sign-up">Register</b-nav-item>
                 </b-navbar-nav>
 
                 <!-- Right aligned nav items -->
@@ -32,32 +32,36 @@
 
     export default {
         name: "NavBar",
-        props: ['loginStatus'],
         data() {
             return {
-                isUserLoggedIn : this.loginStatus
+                isUserLoggedIn: true
             }
         },
-        beforeMount() {
-            window.axios.get(checkTokenUrl,{
-                headers : {
+        mounted() {
+            window.axios.get(checkTokenUrl, {
+                headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${sessionStorage.getItem('JWT')}`
                 }
             }).then(res => res.data)
-                .then(data => this.isUserLoggedIn = data)
-            .catch(err => console.log(err))
-        }, methods: {
+                .then(data => {
+                    this.isUserLoggedIn = data
+                    this.$bus.$emit('stop', 'stop Loading')
+                })
+                .catch(err => console.log(err))
+        },
+        methods: {
             signOut() {
-                window.axios.get(signOutUrl,{
-                    headers : {
+                window.axios.get(signOutUrl, {
+                    headers: {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${sessionStorage.getItem('JWT')}`
                     }
                     // eslint-disable-next-line no-unused-vars
                 }).then(response => {
-                    sessionStorage.setItem('JWT','');
-                    window.router.go()
+                    sessionStorage.setItem('JWT', '');
+                    this.isUserLoggedIn = false
+                    window.$router.go(0)
                 }).catch(err => console.log(err))
             }
         }

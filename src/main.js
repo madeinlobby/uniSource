@@ -12,6 +12,11 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import Home from './components/Home'
 import Login from './components/Login'
 import Register from './components/Register'
+import Loading from './components/Loading'
+import EventBus from "@/EventBus";
+
+
+Vue.prototype.$bus = EventBus
 
 
 if(sessionStorage.getItem('JWT') === null)
@@ -22,7 +27,8 @@ window.axios = require('axios');
 const routes = [
     {path: '/', component: Home},
     {path: '/login', component: Login},
-    {path: '/sign-up', component: Register}
+    {path: '/sign-up', component: Register},
+    {path: '/loading', component: Loading}
 ];
 
 const router = new VueRouter({

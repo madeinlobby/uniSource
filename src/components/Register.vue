@@ -1,6 +1,6 @@
 <template>
     <div>
-        <NavBar :login-status="loginStatus"/>
+        <NavBar/>
         <div id="register-box">
             <b-container class="text-center">
                 <h3>Register</h3>
@@ -105,7 +105,6 @@
                 password: '',
                 repeatedPassword: '',
                 usernameAvailability: false,
-                loginStatus : false
             }
         }, computed: {
             nameState() {
@@ -136,7 +135,6 @@
                 }, {
                     headers: {
                         'Content-Type': 'application/json'
-
                     }
                 }).then(response => {
                     console.log(response)
