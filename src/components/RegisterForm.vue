@@ -72,7 +72,8 @@
                     </b-form-invalid-feedback>
                 </div>
                 <b-button variant="primary" class="mt-3 mb-2"
-                          :disabled="!(checkPassword && usernameAvailability && nameState && lastNameState)" @click="signUp">
+                          :disabled="!(checkPassword && usernameAvailability && nameState && lastNameState)"
+                          @click="signUp">
                     Sign-up
                 </b-button>
                 <div>
@@ -87,6 +88,7 @@
 
 <script>
     import {registerUrl} from '../links.js'
+
     export default {
         name: "RegisterForm",
         data() {
@@ -106,7 +108,7 @@
                 return this.lastName.length > 2 ? true : false
             },
             checkPassword() {
-                if(this.password === '')
+                if (this.password === '')
                     return false
                 return this.password === this.repeatedPassword ? true : false
             }
@@ -114,14 +116,12 @@
         methods: {
             checkUsername() {
                 console.log(12);
-                // eslint-disable-next-line no-undef
-                axios.get(`http://localhost:8081/auth/check-username/${this.username}`)
+                window.axios.get(`http://localhost:8081/auth/check-username/${this.username}`)
                     .then(response => (this.usernameAvailability = response.data));
             },
             signUp() {
                 console.log(registerUrl)
-                // eslint-disable-next-line no-undef
-                axios.post(registerUrl, {
+                this.axios.post(registerUrl, {
                     username: this.username,
                     password: this.password,
                     firstName: this.firstName,
@@ -132,8 +132,11 @@
                         'Content-Type': 'application/json'
 
                     }
-                }).then(response => console.log(response))
-                .catch(err => console.log(err))
+                }).then(response => {
+                    console.log(response)
+                    this.$router.push("/login")
+                })
+                    .catch(err => console.log(err))
             }
         }
     }

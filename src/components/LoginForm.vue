@@ -56,8 +56,7 @@
         },
         methods: {
             login() {
-                // eslint-disable-next-line no-undef
-                axios.post(loginUrl, {
+                window.axios.post(loginUrl, {
                     username: this.username,
                     password: this.password
                 }, {

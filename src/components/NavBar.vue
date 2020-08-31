@@ -32,14 +32,14 @@
 
     export default {
         name: "NavBar",
+        props: ['loginStatus'],
         data() {
             return {
-                isUserLoggedIn : false
+                isUserLoggedIn : this.loginStatus
             }
         },
         beforeMount() {
-            // eslint-disable-next-line no-undef
-            axios.get(checkTokenUrl,{
+            window.axios.get(checkTokenUrl,{
                 headers : {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${sessionStorage.getItem('JWT')}`
@@ -49,8 +49,7 @@
             .catch(err => console.log(err))
         }, methods: {
             signOut() {
-                // eslint-disable-next-line no-undef
-                axios.get(signOutUrl,{
+                window.axios.get(signOutUrl,{
                     headers : {
                         'Content-Type': 'application/json',
                         'Authorization': `Bearer ${sessionStorage.getItem('JWT')}`
@@ -58,7 +57,7 @@
                     // eslint-disable-next-line no-unused-vars
                 }).then(response => {
                     sessionStorage.setItem('JWT','');
-                    this.$router.go()
+                    window.router.go()
                 }).catch(err => console.log(err))
             }
         }

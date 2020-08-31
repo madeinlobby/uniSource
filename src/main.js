@@ -14,6 +14,9 @@ import Login from './components/Login'
 import Register from './components/Register'
 
 
+if(sessionStorage.getItem('JWT') === null)
+    sessionStorage.setItem('JWT','')
+
 window.axios = require('axios');
 
 const routes = [
