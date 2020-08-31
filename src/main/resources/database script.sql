@@ -7,6 +7,12 @@ Description:     <University online source - Automation Online Source - System v
 **/
 use university_source;
 
+create table black_list_token(
+	jwt		varchar(256)	not null	unique,
+    expiration_date		timestamp	not null,
+    constraint PK_BlackListToken_Jwt	primary key(jwt)
+);
+
 create table `user`(
 	user_id		int		not null	auto_increment	unique,
     username		varchar(100) charset utf8	not null unique,
