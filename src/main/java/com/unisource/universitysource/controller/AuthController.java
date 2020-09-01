@@ -136,10 +136,10 @@ public class AuthController {
             return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
         String jwt = token.substring(7);
         String username = jwtUtil.extractUsername(jwt);
-        User user = userService.getUserByName(username);
         UserDetails userDetail = userDetailsService.loadUserByUsername(username);
         if (!jwtUtil.validateToken(jwt, userDetail))
             return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
+        User user = userService.getUserByName(username);
         return ResponseEntity.ok(new PersonalInfoRespond(user.getUserName(), user.getFirstName(), user.getLastName()));
     }
 
