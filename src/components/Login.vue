@@ -82,11 +82,13 @@
                     let jwt = sessionStorage.getItem('JWT')
                     jwt = response.data.jwt
                     sessionStorage.setItem('JWT', jwt)
-                    this.loading = true
-                    setTimeout(() => {
-                        this.loading = false
-                        this.$router.push('/')
-                    },2000);
+                    this.$bus.$emit('logged', 'User logged')
+                    this.$router.push('/')
+                    //this.loading = true
+                    // setTimeout(() => {
+                    //     this.loading = false
+                    //     this.$router.push('/')
+                    // },2000);
                 })
                     .catch(err => console.log(err))
             }

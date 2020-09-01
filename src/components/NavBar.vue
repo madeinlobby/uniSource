@@ -28,7 +28,7 @@
 </template>
 
 <script>
-    import {checkTokenUrl, signOutUrl} from "@/links";
+    import {checkTokenUrl,signOutUrl} from "@/links";
 
     export default {
         name: "NavBar",
@@ -37,7 +37,10 @@
                 isUserLoggedIn: true
             }
         },
-        mounted() {
+        beforeCreate() {
+            this.$bus.$on('logged', () => {
+                this.isUserLoggedIn = true
+            })
             window.axios.get(checkTokenUrl, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -61,7 +64,8 @@
                 }).then(response => {
                     sessionStorage.setItem('JWT', '');
                     this.isUserLoggedIn = false
-                    window.$router.go(0)
+                    //window.$router.go(0)
+                    window.location.reload();
                 }).catch(err => console.log(err))
             }
         }
