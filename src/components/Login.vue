@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Loading :show="loading"/>
         <div v-show="!loading">
             <NavBar/>
             <div id="login-box">
@@ -71,6 +72,7 @@
         },
         methods: {
             login() {
+                this.loading = true
                 window.axios.post(loginUrl, {
                     username: this.username,
                     password: this.password
@@ -79,18 +81,17 @@
                         'Content-Type': 'application/json'
                     }
                 }).then(response => {
+                    this.loading = false
                     let jwt = sessionStorage.getItem('JWT')
                     jwt = response.data.jwt
                     sessionStorage.setItem('JWT', jwt)
                     this.$bus.$emit('logged', 'User logged')
                     this.$router.push('/')
-                    //this.loading = true
-                    // setTimeout(() => {
-                    //     this.loading = false
-                    //     this.$router.push('/')
-                    // },2000);
                 })
-                    .catch(err => console.log(err))
+                    .catch(err => {
+                        console.log(err)
+                        this.loading = false
+                    })
             }
         }
     }

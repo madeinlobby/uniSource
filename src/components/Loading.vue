@@ -1,38 +1,47 @@
 <template>
     <div>
-        <div class="loading">
-            <img src="../assets/3.gif" alt="لودینگ"/>
-        </div>
+                <b-overlay
+                        no-wrap
+                        id="overlay-background"
+                        :show="show"
+                        :variant="variant"
+                        :opacity="opacity"
+                        :blur="blur"
+                        rounded="sm"
+                >
+                </b-overlay>
     </div>
 </template>
 
 <script>
-
     export default {
-        name: 'Loading',
-        components: {
-        }
+        data() {
+            return {
+                variant: 'light',
+                opacity: 0.85,
+                blur: '2px',
+                variants: [
+                    'transparent',
+                    'white',
+                    'light',
+                    'dark',
+                    'primary',
+                    'secondary',
+                    'success',
+                    'danger',
+                    'warning',
+                    'info',
+                ],
+                blurs: [
+                    { text: 'None', value: '' },
+                    '1px',
+                    '2px',
+                    '5px',
+                    '0.5em',
+                    '1rem'
+                ]
+            }
+        },
+        props: ['show']
     }
 </script>
-
-<style scoped>
-    .loading {
-        position: absolute;
-        top: 0;
-        left: 0;
-
-        width: 100%;
-        height: 100%;
-
-        z-index: 1;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .loading img {
-        width: 85px;
-        height: 85px;
-    }
-</style>
