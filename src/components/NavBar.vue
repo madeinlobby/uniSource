@@ -37,7 +37,7 @@
         data() {
             return {
                 isUserLoggedIn: false,
-                loader: false
+                loader: true
             }
         },
         components: {
@@ -48,7 +48,6 @@
             this.$bus.$on('logged', () => {
                 this.isUserLoggedIn = true
             })
-            this.loader = true
             window.axios.get(checkTokenUrl, {
                 headers: {
                     'Content-Type': 'application/json',
@@ -59,7 +58,10 @@
                     this.isUserLoggedIn = data
                     this.loader = false
                 })
-                .catch(err => console.log(err))
+                .catch(err => {
+                    console.log(err)
+                    this.loader = false
+                })
         },
         methods: {
             signOut() {
