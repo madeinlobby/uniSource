@@ -36,8 +36,8 @@
         name: "NavBar",
         data() {
             return {
-                isUserLoggedIn: true,
-                loader: true
+                isUserLoggedIn: false,
+                loader: false
             }
         },
         components: {
@@ -48,6 +48,7 @@
             this.$bus.$on('logged', () => {
                 this.isUserLoggedIn = true
             })
+            this.loader = true
             window.axios.get(checkTokenUrl, {
                 headers: {
                     'Content-Type': 'application/json',
