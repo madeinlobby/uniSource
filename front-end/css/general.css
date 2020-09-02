@@ -3,6 +3,17 @@
     border-radius: 0;
 }
 
+.primary{
+    display: inline-block;
+    float: left;
+}
+
+.secondary{
+    display: inline-block;
+    float: right;
+    clear: right;
+}
+
 .site-footer
 {
     background-color:#26272b;

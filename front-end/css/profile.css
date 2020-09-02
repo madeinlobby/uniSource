@@ -1,0 +1,28 @@
+header{
+    text-align: center;
+}
+
+img.profileImage {
+    border-radius: 50%;
+    width: 100%;
+}
+
+.name-header{
+    font-weight: bold;
+    font-family: "Times New Roman", serif;
+    font-size: x-large;
+}
+
+.card{
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.bio{
+    color: #00bfff;
+}
+
+.round-button{
+    border-radius: 100px;
+
+}
