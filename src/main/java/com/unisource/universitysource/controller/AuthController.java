@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 @RestController
@@ -129,4 +130,38 @@ public class AuthController {
         UserDetails userDetail = userDetailsService.loadUserByUsername(username);
         return jwtUtil.validateToken(jwt, userDetail);
     }
+
+    @GetMapping("/personal-info")
+    public ResponseEntity<?> getPersonalInfo(@RequestHeader(value = "Authorization") String token) {
+        if (token == null || !token.startsWith("Bearer "))
+            return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
+        String jwt = token.substring(7);
+        String username = jwtUtil.extractUsername(jwt);
+        UserDetails userDetail = userDetailsService.loadUserByUsername(username);
+        if (!jwtUtil.validateToken(jwt, userDetail))
+            return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
+        User user = userService.getUserByName(username);
+        return ResponseEntity.ok(new PersonalInfoRespond(user.getUserName(), user.getFirstName(), user.getLastName()));
+    }
+    @PostMapping("/change-password")
+    public ResponseEntity<?> changePassword(@RequestHeader(value = "Authorization") String token,@RequestBody Map info){
+        if (token == null || !token.startsWith("Bearer "))
+            return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
+        String jwt = token.substring(7);
+        String username = jwtUtil.extractUsername(jwt);
+        UserDetails userDetail = userDetailsService.loadUserByUsername(username);
+        if (!jwtUtil.validateToken(jwt, userDetail))
+            return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
+        User user = userService.getUserByName(username);
+        String oldPassword =(String) info.get("oldPassword");
+        String newPassword = (String)info.get("newPassword");
+        if(oldPassword.equals(newPassword))
+            return ResponseEntity.badRequest().body(new MessageResponse("equal new and old password"));
+        if(!encoder.encode(oldPassword).equals(user.getPassword()))
+            return ResponseEntity.badRequest().body(new MessageResponse("wrong old password"));
+        user.setPassword(encoder.encode(newPassword));
+        userService.editUser(user);
+        return ResponseEntity.ok(new MessageResponse("changed successfully."));
+    }
+
 }
