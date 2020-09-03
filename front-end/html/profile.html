@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Profile</title>
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <!-- Bootstrap -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css" integrity="sha384-y3tfxAZXuh4HwSYylfB+J125MxIs6mR5FOHamPBG064zB+AFeWH94NdvaCBm8qnd" crossorigin="anonymous">
     <link href="./../css/bootstrap.min.css" rel="stylesheet">
@@ -33,36 +34,70 @@
     </div><!-- /.container-fluid -->
 </nav>
 
-<!--    <header>-->
-<!--        <h2>Profile</h2>-->
-<!--    </header>-->
-
     <main>
         <div class="container">
-            <div class="card">
-                <!--            image and name&bio-->
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-4">
-                        <img class="profileImage" id="profileImage" src="./../res/img_avatar.png" alt="profile image">
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-8">
-                        <div class="row">
-                            <h4 class="name-header name primary">Name LastName</h4>
-                            <button id="editProfile" class="btn round-button editProfile secondary">Edit Profile</button>
+            <div class="card main-card">
+                <div class="card-body">
+                    <!--            image and name&bio-->
+                    <div class="row">
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-3">
+                            <img class="profileImage" id="profileImage" src="./../res/img_avatar.png" alt="profile image">
                         </div>
-                        <div class="row">
-                            <p class="bio">bio: <span id="bio"></span></p>
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-9">
+                            <div class="row">
+                                <div class="col-lg-10 col-md-9 col-sm-9">
+                                    <h4 class="name-header name">Name LastName</h4>
+                                </div>
+                                <div class="col-lg-2 col-md-3 col-sm-3">
+                                    <a type="button" id="editProfile" class="btn btn-primary btn-block round-button editProfile" href="./editProfile.html">Edit Profile</a>
+                                </div>
+                                <div class="col-lg-12 col-md-12 col-sm-12 bio">
+                                    <p>bio: <span id="bio">Web developer</span></p>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <!--            personal information-->
-                <div class="row">
-                    <div class="col-lg-4 col-md-4 col-sm-4 col-12">
+                    <!--            personal information-->
+                    <div class="row">
+                        <br>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-12">
+                            <!--                        <p>Work Link</p>-->
+                            <div class="list-group list-group-flush">
+                                <a class="list-group-item active">Work Link</a>
+                                <a class="list-group-item list-group-item-action" href="#">University</a>
+                                <a class="list-group-item list-group-item-action" href="#">Github</a>
+                                <a class="list-group-item list-group-item-action" href="#">Linkedin</a>
+                            </div>
+                        </div>
 
-                    </div>
-                    <div class="col-lg-8 col-md-8 col-sm-8 col-12">
-
+                        <div class="col-lg-9 col-md-9 col-sm-9 col-12">
+                            <div class="card">
+                                <div class="card-header">About</div>
+                                <div class="card-body">
+                                    <ul class="list-group list-group-flush information">
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6 info-title">Username:</div>
+                                                <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6 info" id="username">username</div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6 info-title">Name:</div>
+                                                <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6 info" id="name">name</div>
+                                            </div>
+                                        </li>
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6 info-title">Email:</div>
+                                                <div class="col col-lg-6 col-md-6 col-sm-6 col-xs-6 col-6 info" id="email">email</div>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -125,6 +160,6 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
 
     <script src="./../js/bootstrap.min.js"></script>
-    <script src="./../js/general.js"></script>
+    <script src="./../js/profile.js"></script>
 </body>
 </html>

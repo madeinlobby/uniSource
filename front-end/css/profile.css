@@ -1,7 +1,3 @@
-header{
-    text-align: center;
-}
-
 img.profileImage {
     border-radius: 50%;
     width: 100%;
@@ -13,16 +9,36 @@ img.profileImage {
     font-size: x-large;
 }
 
-.card{
+.main-card{
+    margin-top: 50px;
+}
+
+.card-body{
     padding: 20px;
     border-radius: 10px;
 }
 
-.bio{
+#bio{
     color: #00bfff;
+}
+
+.bio{
+    margin-top: 25px;
 }
 
 .round-button{
     border-radius: 100px;
+    margin: 0;
+}
 
+.information li{
+    padding: 20px 20px;
+}
+
+.info-title{
+    font-weight: bold;
+}
+
+.info{
+    color: #00aced;
 }
