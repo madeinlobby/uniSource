@@ -4,9 +4,11 @@ import com.unisource.universitysource.exceptions.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 @ControllerAdvice
-public class ExceptionHandlerAdvice {
+public class ExceptionHandlerAdvice extends ResponseEntityExceptionHandler {
     @ExceptionHandler(InvalidPasswordException.class)
     public ResponseEntity<Exception> handleInvalidPasswordException(InvalidPasswordException e) {
         return ResponseEntity.status(711).body(e);
@@ -30,5 +32,10 @@ public class ExceptionHandlerAdvice {
     @ExceptionHandler(PermissionDeniedException.class)
     public ResponseEntity<Exception> handleInvalidPasswordException(PermissionDeniedException e) {
         return ResponseEntity.status(715).body(e);
+    }
+
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ResponseEntity<Exception> handleMaxUploadSizeExceededException(MaxUploadSizeExceededException e) {
+        return ResponseEntity.status(716).body(e);
     }
 }

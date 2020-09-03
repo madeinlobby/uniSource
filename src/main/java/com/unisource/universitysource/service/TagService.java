@@ -33,4 +33,12 @@ public class TagService {
     public Tag getSingleTagById(int id) {
         return tagRepository.findById(id).get();
     }
+
+    public Tag getTagByNameAndColor(String name, String color) {
+        return tagRepository.findByTagNameAndColor(name, color).get();
+    }
+
+    public Boolean existTagByNameAndColor(String name, String color) {
+        return tagRepository.existsByTagNameAndColor(name, color);
+    }
 }
