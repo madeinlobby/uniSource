@@ -7,3 +7,4 @@ window.addEventListener("resize", function () {
         mainTag.style.height = window.innerHeight + 'px';
     }
 });
+
