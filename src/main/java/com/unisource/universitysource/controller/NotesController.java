@@ -4,6 +4,7 @@ import com.unisource.universitysource.model.*;
 import com.unisource.universitysource.service.*;
 import com.unisource.universitysource.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -65,5 +66,12 @@ public class NotesController {
         }
     }
 
+    @GetMapping("/download/{id}")
+    public ResponseEntity<?> downloadNote(@PathVariable int id) {
+        if (noteService.existNoteById(id))
+            return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
+        Note note = noteService.getSingleNote(id);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + note.getNoteId() + "\"").body(note.getFile());
+    }
 
 }

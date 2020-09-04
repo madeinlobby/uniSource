@@ -36,4 +36,8 @@ public class NoteService {
         noteRepository.findAll().forEach(notes::add);
         return notes;
     }
+
+    public Boolean existNoteById(int noteId) {
+        return noteRepository.existsByNoteId(noteId);
+    }
 }

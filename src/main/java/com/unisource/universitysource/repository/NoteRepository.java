@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface NoteRepository extends CrudRepository<Note, Integer> {
     List<Note> findAllByCourse_CourseId(int courseId);
+    Boolean existsByNoteId(int noteId);
 }
