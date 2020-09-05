@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping(name = "/notes")
 public class NotesController {
     @Autowired
     private NoteService noteService;
@@ -41,7 +40,7 @@ public class NotesController {
     @Autowired
     private NoteResponseRepository noteResponseRepository;
 
-    @PostMapping("/upload")
+    @PostMapping("/note/upload")
     public ResponseEntity<?> uploadNotes(@RequestParam("file")MultipartFile file, @RequestBody NoteUploadRequest noteUploadRequest, @RequestHeader(value = "Authorization") String token) {
         if (token == null || !token.startsWith("Bearer "))
             return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
@@ -72,19 +71,19 @@ public class NotesController {
         }
     }
 
-    @GetMapping("/all")
+    @GetMapping("/note/all")
     public ResponseEntity<?> getAllNotes() {
         return ResponseEntity.ok().body(noteResponseRepository.findAll());
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/note/{id}")
     public ResponseEntity<?> getNoteById(@PathVariable int id) {
         if (noteService.existNoteById(id))
             return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
         return ResponseEntity.ok().body(noteResponseRepository.findById(id).get());
     }
 
-    @GetMapping("/download/{id}")
+    @GetMapping("/note/download/{id}")
     public ResponseEntity<?> downloadNote(@PathVariable int id) {
         if (noteService.existNoteById(id))
             return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
@@ -92,7 +91,7 @@ public class NotesController {
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + note.getNoteId() + "\"").body(note.getFile());
     }
 
-    @GetMapping("/tags/{id}")
+    @GetMapping("/note/tags/{id}")
     public ResponseEntity<?> getNoteTags(@PathVariable int id) {
         if (noteService.existNoteById(id))
             return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
