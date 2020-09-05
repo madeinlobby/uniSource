@@ -7,10 +7,10 @@ import java.util.List;
 public class NoteExpensePstDto {
     private MultipartFile file;
     private int courseId;
-    private List<Tag> tags;
+    private List<Integer> tags;
     private String writer;
 
-    public NoteExpensePstDto(MultipartFile file, int courseId, List<Tag> tags, String writer) {
+    public NoteExpensePstDto(MultipartFile file, int courseId, List<Integer> tags, String writer) {
         this.file = file;
         this.courseId = courseId;
         this.tags = tags;
@@ -36,11 +36,11 @@ public class NoteExpensePstDto {
         this.courseId = courseId;
     }
 
-    public List<Tag> getTags() {
+    public List<Integer> getTags() {
         return tags;
     }
 
-    public void setTags(List<Tag> tags) {
+    public void setTags(List<Integer> tags) {
         this.tags = tags;
     }
 

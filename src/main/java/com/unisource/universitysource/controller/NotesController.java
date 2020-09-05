@@ -16,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 public class NotesController {
@@ -51,7 +52,7 @@ public class NotesController {
             return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
         User uploader = userService.getUserByName(username);
         Course course = courseService.getSingleCourseById(noteExpensePstDto.getCourseId());
-        List<Tag> tags = noteExpensePstDto.getTags();
+        List<Tag> tags = noteExpensePstDto.getTags().stream().map(tag -> tagService.getSingleTagById(tag)).collect(Collectors.toList());
         /*
         for (TagRequest tag : noteExpensePstDto.getTags()) {
             if (tagService.existTagByNameAndColor(tag.getTagName(), tag.getColor())) {
