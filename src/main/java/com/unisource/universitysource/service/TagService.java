@@ -5,6 +5,9 @@ import com.unisource.universitysource.repository.TagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class TagService {
     @Autowired
@@ -40,5 +43,11 @@ public class TagService {
 
     public Boolean existTagByNameAndColor(String name, String color) {
         return tagRepository.existsByTagNameAndColor(name, color);
+    }
+
+    public List<Tag> getAllTags() {
+        ArrayList<Tag> tags = new ArrayList<>();
+        tagRepository.findAll().forEach(tags::add);
+        return tags;
     }
 }

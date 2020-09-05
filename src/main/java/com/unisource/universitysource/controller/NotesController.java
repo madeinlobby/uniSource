@@ -70,6 +70,18 @@ public class NotesController {
         }
     }
 
+    @GetMapping("/all")
+    public ResponseEntity<?> getAllNotes() {
+        return ResponseEntity.ok().body(noteService.getAllNotes());
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<?> getNoteById(@PathVariable int id) {
+        if (noteService.existNoteById(id))
+            return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
+        return ResponseEntity.ok().body(noteService.getSingleNote(id));
+    }
+
     @GetMapping("/download/{id}")
     public ResponseEntity<?> downloadNote(@PathVariable int id) {
         if (noteService.existNoteById(id))

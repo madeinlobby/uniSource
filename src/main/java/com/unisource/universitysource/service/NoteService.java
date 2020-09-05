@@ -31,7 +31,7 @@ public class NoteService {
         noteRepository.deleteById(noteId);
     }
 
-    public List<Note> getAllNotes(Map filters) {
+    public List<Note> getAllNotes() {
         ArrayList<Note> notes = new ArrayList<>();
         noteRepository.findAll().forEach(notes::add);
         return notes;
