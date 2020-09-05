@@ -1,6 +1,7 @@
 package com.unisource.universitysource.controller;
 
 import com.unisource.universitysource.model.*;
+import com.unisource.universitysource.repository.NoteResponseRepository;
 import com.unisource.universitysource.service.*;
 import com.unisource.universitysource.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,9 @@ public class NotesController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private NoteResponseRepository noteResponseRepository;
 
     @PostMapping("/upload")
     public ResponseEntity<?> uploadNotes(@RequestParam("file")MultipartFile file, @RequestBody NoteUploadRequest noteUploadRequest, @RequestHeader(value = "Authorization") String token) {
@@ -72,6 +76,14 @@ public class NotesController {
             return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
         Note note = noteService.getSingleNote(id);
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + note.getNoteId() + "\"").body(note.getFile());
+    }
+
+    @GetMapping("/tags/{id}")
+    public ResponseEntity<?> getNoteTags(@PathVariable int id) {
+        if (noteService.existNoteById(id))
+            return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
+        NoteResponse noteResponse = noteResponseRepository.findById(id).get();
+        return ResponseEntity.ok().body(noteResponse.getTags());
     }
 
 }
