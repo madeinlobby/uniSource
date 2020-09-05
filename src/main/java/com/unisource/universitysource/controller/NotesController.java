@@ -41,7 +41,40 @@ public class NotesController {
     private NoteResponseRepository noteResponseRepository;
 
     @PostMapping("/note/upload")
-    public ResponseEntity<?> uploadNotes(@RequestParam("file")MultipartFile file, @RequestBody NoteUploadRequest noteUploadRequest, @RequestHeader(value = "Authorization") String token) {
+    public ResponseEntity<?> uploadNotes(@ModelAttribute NoteExpensePstDto noteExpensePstDto, @RequestHeader(value = "Authorization") String token) {
+        if (token == null || !token.startsWith("Bearer "))
+            return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
+        String jwt = token.substring(7);
+        String username = jwtUtil.extractUsername(jwt);
+        UserDetails userDetail = userDetailsService.loadUserByUsername(username);
+        if (!jwtUtil.validateToken(jwt, userDetail))
+            return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
+        User uploader = userService.getUserByName(username);
+        Course course = courseService.getSingleCourseById(noteExpensePstDto.getCourseId());
+        List<Tag> tags = noteExpensePstDto.getTags();
+        /*
+        for (TagRequest tag : noteExpensePstDto.getTags()) {
+            if (tagService.existTagByNameAndColor(tag.getTagName(), tag.getColor())) {
+                tags.add(tagService.getTagByNameAndColor(tag.getTagName(), tag.getColor()));
+            } else {
+                Tag newTag = new Tag(tag.getTagName(), tag.getColor());
+                tagService.addTag(newTag);
+                tags.add(newTag);
+            }
+        }
+         */
+        try {
+            String fileName = StringUtils.cleanPath(noteExpensePstDto.getFile().getOriginalFilename());
+            Note note = new Note(course, noteExpensePstDto.getWriter(), uploader, noteExpensePstDto.getFile().getBytes(), fileName, noteExpensePstDto.getFile().getContentType(), tags);
+            noteService.addNote(note);
+            return ResponseEntity.ok(new MessageResponse("Note Added successfully."));
+        } catch (IOException e) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e);
+        }
+    }
+
+    /*@PostMapping("/note/upload")
+    public ResponseEntity<?> uploadNotes(@RequestParam("file")MultipartFile file, @RequestParam NoteUploadRequest noteUploadRequest, @RequestHeader(value = "Authorization") String token) {
         if (token == null || !token.startsWith("Bearer "))
             return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
         String jwt = token.substring(7);
@@ -69,7 +102,7 @@ public class NotesController {
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e);
         }
-    }
+    }*/
 
     @GetMapping("/note/all")
     public ResponseEntity<?> getAllNotes() {
