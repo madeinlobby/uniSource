@@ -22,6 +22,12 @@ public class NoteResponse {
     @JoinColumn(name = "uploader", referencedColumnName = "user_id", foreignKey = @ForeignKey(name = "FK_Note_Uploader"), nullable = false)
     private User uploader;
 
+    @Column(name = "file_name", nullable = false)
+    private String fileName;
+
+    @Column(name = "file_type", nullable = false)
+    private String fileType;
+
     @ManyToMany
     @JoinTable(
             name = "note_tag",
@@ -29,10 +35,12 @@ public class NoteResponse {
             inverseJoinColumns = @JoinColumn(name = "tag"))
     private List<Tag> tags;
 
-    public NoteResponse(Course course, String writer, User uploader, List<Tag> tags) {
+    public NoteResponse(Course course, String writer, User uploader, String fileName, String fileType, List<Tag> tags) {
         this.course = course;
         this.writer = writer;
         this.uploader = uploader;
+        this.fileName = fileName;
+        this.fileType = fileType;
         this.tags = tags;
     }
 
@@ -70,6 +78,22 @@ public class NoteResponse {
 
     public void setUploader(User uploader) {
         this.uploader = uploader;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public List<Tag> getTags() {

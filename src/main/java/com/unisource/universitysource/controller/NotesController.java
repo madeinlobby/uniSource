@@ -9,6 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -62,7 +63,8 @@ public class NotesController {
             }
         }
         try {
-            Note note = new Note(course, noteUploadRequest.getWriter(), uploader, file.getBytes(), tags);
+            String fileName = StringUtils.cleanPath(file.getOriginalFilename());
+            Note note = new Note(course, noteUploadRequest.getWriter(), uploader, file.getBytes(), fileName, file.getContentType(), tags);
             noteService.addNote(note);
             return ResponseEntity.ok(new MessageResponse("Note Added successfully."));
         } catch (IOException e) {
@@ -72,14 +74,14 @@ public class NotesController {
 
     @GetMapping("/all")
     public ResponseEntity<?> getAllNotes() {
-        return ResponseEntity.ok().body(noteService.getAllNotes());
+        return ResponseEntity.ok().body(noteResponseRepository.findAll());
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getNoteById(@PathVariable int id) {
         if (noteService.existNoteById(id))
             return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
-        return ResponseEntity.ok().body(noteService.getSingleNote(id));
+        return ResponseEntity.ok().body(noteResponseRepository.findById(id).get());
     }
 
     @GetMapping("/download/{id}")

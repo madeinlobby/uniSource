@@ -26,6 +26,12 @@ public class Note {
     @Column(name = "file", columnDefinition = "longblob")
     private byte[] file;
 
+    @Column(name = "file_name", nullable = false)
+    private String fileName;
+
+    @Column(name = "file_type", nullable = false)
+    private String fileType;
+
     @ManyToMany
     @JoinTable(
             name = "note_tag",
@@ -33,11 +39,13 @@ public class Note {
             inverseJoinColumns = @JoinColumn(name = "tag"))
     private List<Tag> tags;
 
-    public Note(Course course, String writer, User uploader, byte[] file, List<Tag> tags) {
+    public Note(Course course, String writer, User uploader, byte[] file, String fileName, String fileType, List<Tag> tags) {
         this.course = course;
         this.writer = writer;
         this.uploader = uploader;
         this.file = file;
+        this.fileName = fileName;
+        this.fileType = fileType;
         this.tags = tags;
     }
 
@@ -83,6 +91,22 @@ public class Note {
 
     public void setFile(byte[] file) {
         this.file = file;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 
     public List<Tag> getTags() {
