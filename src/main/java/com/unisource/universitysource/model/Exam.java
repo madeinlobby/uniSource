@@ -35,12 +35,20 @@ public class Exam {
     @Column(name = "file", columnDefinition = "longblob")
     private byte[] file;
 
-    public Exam(Course course, User uploader, Date date, List<Tag> tags, byte[] file) {
+    @Column(name = "file_name", nullable = false)
+    private String fileName;
+
+    @Column(name = "file_type", nullable = false)
+    private String fileType;
+
+    public Exam(Course course, User uploader, Date date, List<Tag> tags, byte[] file, String fileName, String fileType) {
         this.course = course;
         this.uploader = uploader;
         this.date = date;
         this.tags = tags;
         this.file = file;
+        this.fileName = fileName;
+        this.fileType = fileType;
     }
 
     public Exam() {
@@ -93,5 +101,21 @@ public class Exam {
 
     public void setFile(byte[] file) {
         this.file = file;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
+    }
+
+    public String getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(String fileType) {
+        this.fileType = fileType;
     }
 }

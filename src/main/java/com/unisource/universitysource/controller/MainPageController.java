@@ -25,7 +25,7 @@ public class MainPageController {
     public ResponseEntity<List<Note>> getAllNotesWithFilter(@RequestBody Map body) {
         //TODO list addign fiters to respond
         Map<String, String> filter = new HashMap<>();
-        return new ResponseEntity<>(noteService.getAllNotes(filter), HttpStatus.OK);
+        return new ResponseEntity<>(noteService.getAllNotes(), HttpStatus.OK);
     }
 
     //@PostMapping(/*address*/)
