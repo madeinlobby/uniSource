@@ -46,9 +46,9 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.cors().and().csrf().disable().exceptionHandling().authenticationEntryPoint(authEntryPointJwt).and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
                 .antMatchers("/auth/check-username/**").anonymous()
-                .antMatchers("/auth/**", "/note/**", "/note/**/**",
+                .antMatchers("/auth/**",
                         "/get-all-tags-courses", "/all-tags", "/all-courses").permitAll()
-                .antMatchers("/test/**").permitAll()
+                .antMatchers("/test/**","/note/**", "/note/**/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         http.cors();
