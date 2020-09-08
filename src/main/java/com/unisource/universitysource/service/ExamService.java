@@ -20,24 +20,24 @@ public class ExamService {
 
     public Exam getSingleExam(int examId) {
         return examRepository.findById(examId).get();
-
     }
 
     public void addExam(Exam newExam) {
         examRepository.save(newExam);
-
     }
 
     public void deleteExamById(int examId) {
         examRepository.deleteById(examId);
-
     }
 
-    public List<Exam> getAllExams(Map filters) {
+    public List<Exam> getAllExams() {
         ArrayList<Exam> exams = new ArrayList<>();
         examRepository.findAll().forEach(exams::add);
         return exams;
     }
 
+    public Boolean existExamById(int id) {
+        return examRepository.existsByExamId(id);
+    }
 
 }

@@ -1,7 +1,7 @@
 package com.unisource.universitysource.controller;
 
 import com.unisource.universitysource.model.*;
-import com.unisource.universitysource.repository.NoteResponseRepository;
+import com.unisource.universitysource.repository.ExamResponseRepository;
 import com.unisource.universitysource.service.*;
 import com.unisource.universitysource.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +18,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController
-public class NotesController {
+public class ExamController {
     @Autowired
-    private NoteService noteService;
-
+    private ExamService examService;
     @Autowired
     private JwtUtil jwtUtil;
 
@@ -38,11 +37,11 @@ public class NotesController {
     private UserService userService;
 
     @Autowired
-    private NoteResponseRepository noteResponseRepository;
+    private ExamResponseRepository examResponseRepository;
 
-    @PostMapping("/note/upload")
+    @PostMapping("/exam/upload")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> uploadNotes(@ModelAttribute NoteExpensePstDto noteExpensePstDto, @RequestHeader(value = "Authorization") String token) {
+    public ResponseEntity<?> uploadExams(@ModelAttribute ExamExpensePostDto examExpensePostDto, @RequestHeader(value = "Authorization") String token) {
         if (token == null || !token.startsWith("Bearer "))
             return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
         String jwt = token.substring(7);
@@ -51,45 +50,44 @@ public class NotesController {
         if (!jwtUtil.validateToken(jwt, userDetail))
             return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
         User uploader = userService.getUserByName(username);
-        Course course = courseService.getSingleCourseById(noteExpensePstDto.getCourseId());
-        List<Tag> tags = noteExpensePstDto.getTags().stream().map(tag -> tagService.getSingleTagById(tag)).collect(Collectors.toList());
+        Course course = courseService.getSingleCourseById(examExpensePostDto.getCourseId());
+        List<Tag> tags = examExpensePostDto.getTags().stream().map(tag -> tagService.getSingleTagById(tag)).collect(Collectors.toList());
         try {
-            String fileName = StringUtils.cleanPath(noteExpensePstDto.getFile().getOriginalFilename());
-            Note note = new Note(course, noteExpensePstDto.getWriter(), uploader, noteExpensePstDto.getFile().getBytes(), fileName, noteExpensePstDto.getFile().getContentType(), tags);
-            noteService.addNote(note);
+            String fileName = StringUtils.cleanPath(examExpensePostDto.getFile().getOriginalFilename());
+            Exam exam = new Exam(course, uploader, examExpensePostDto.getDate(), tags, examExpensePostDto.getFile().getBytes(), fileName, examExpensePostDto.getFile().getContentType());
+            examService.addExam(exam);
             return ResponseEntity.ok(new MessageResponse("Note Added successfully."));
         } catch (IOException e) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(e);
         }
     }
 
-    @GetMapping("/note/all")
-    public ResponseEntity<?> getAllNotes() {
-        return ResponseEntity.ok().body(noteResponseRepository.findAll());
+    @GetMapping("/exam/all")
+    public ResponseEntity<?> getAllExams() {
+        return ResponseEntity.ok().body(examResponseRepository.findAll());
     }
 
-    @GetMapping("/note/{id}")
-    public ResponseEntity<?> getNoteById(@PathVariable int id) {
-        if (!noteService.existNoteById(id))
+    @GetMapping("/exam/{id}")
+    public ResponseEntity<?> getExamById(@PathVariable int id) {
+        if (!examService.existExamById(id))
             return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
-        return ResponseEntity.ok().body(noteResponseRepository.findById(id).get());
+        return ResponseEntity.ok().body(examResponseRepository.findById(id).get());
     }
 
-    @GetMapping("/note/download/{id}")
+    @GetMapping("/exam/download/{id}")
     @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
-    public ResponseEntity<?> downloadNote(@PathVariable int id) {
-        if (!noteService.existNoteById(id))
+    public ResponseEntity<?> downloadExam(@PathVariable int id) {
+        if (!examService.existExamById(id))
             return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
-        Note note = noteService.getSingleNote(id);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + note.getFileName() + "\"").body(note.getFile());
+        Exam exam = examService.getSingleExam(id);
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + exam.getFileName() + "\"").body(exam.getFile());
     }
 
-    @GetMapping("/note/tags/{id}")
-    public ResponseEntity<?> getNoteTags(@PathVariable int id) {
-        if (!noteService.existNoteById(id))
+    @GetMapping("/exam/tags/{id}")
+    public ResponseEntity<?> getExamTags(@PathVariable int id) {
+        if (!examService.existExamById(id))
             return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
-        NoteResponse noteResponse = noteResponseRepository.findById(id).get();
-        return ResponseEntity.ok().body(noteResponse.getTags());
+        ExamResponse examResponse = examResponseRepository.findById(id).get();
+        return ResponseEntity.ok().body(examResponse.getTags());
     }
-
 }
