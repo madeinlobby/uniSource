@@ -32,6 +32,6 @@ public class MainPageController {
     public ResponseEntity<List<Exam>> getAllExamsWithFilter(@RequestBody Map body) {
         //TODO list addign fiters to respond
         Map<String, String> filter = new HashMap<>();
-        return new ResponseEntity<>(examService.getAllExams(filter), HttpStatus.OK);
+        return new ResponseEntity<>(examService.getAllExams(), HttpStatus.OK);
     }
 }
