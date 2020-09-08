@@ -20,7 +20,7 @@ public class NoteResponseJsonSerializer {
             jsonGenerator.writeStringField("uploader", noteResponse.getUploader().getUserName());
             jsonGenerator.writeStringField("fileName", noteResponse.getFileName());
             jsonGenerator.writeStringField("fileType", noteResponse.getFileType());
-            jsonGenerator.writeStartArray();
+            jsonGenerator.writeArrayFieldStart("tags");
             for (Tag tag : noteResponse.getTags()) {
                 jsonGenerator.writeObject(tag);
             }

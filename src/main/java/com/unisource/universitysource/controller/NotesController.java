@@ -41,7 +41,7 @@ public class NotesController {
     private NoteResponseRepository noteResponseRepository;
 
     @PostMapping("/note/upload")
-    //@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> uploadNotes(@ModelAttribute NoteExpensePstDto noteExpensePstDto, @RequestHeader(value = "Authorization") String token) {
         if (token == null || !token.startsWith("Bearer "))
             return ResponseEntity.badRequest().body(new MessageResponse("invalid token sent"));
@@ -65,6 +65,8 @@ public class NotesController {
 
     @GetMapping("/note/all")
     public ResponseEntity<?> getAllNotes() {
+        System.out.println("all");
+        System.out.println(noteResponseRepository.findAll());
         return ResponseEntity.ok().body(noteResponseRepository.findAll());
     }
 
