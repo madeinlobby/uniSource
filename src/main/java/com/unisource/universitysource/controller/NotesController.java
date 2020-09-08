@@ -92,4 +92,15 @@ public class NotesController {
         return ResponseEntity.ok().body(noteResponse.getTags());
     }
 
+    @GetMapping("/note/page/{number}")
+    public ResponseEntity<?> getExamsWithPagination(@PathVariable int number) {
+        List<NoteResponse> responses = noteResponseRepository.findAll();
+        if (responses.size() <= (number - 1) * 10)
+            return ResponseEntity.ok().body(responses.subList((number - 1) * 10, number * 10));
+        else if (responses.size() > (number - 1) * 10 && responses.size() <= number * 10)
+            return ResponseEntity.ok().body(responses.subList((number - 1) * 10, responses.size()));
+        else
+            return ResponseEntity.badRequest().body(new MessageResponse("page is out of range."));
+    }
+
 }

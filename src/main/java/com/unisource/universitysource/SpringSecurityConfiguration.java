@@ -48,7 +48,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth/check-username/**").anonymous()
                 .antMatchers("/auth/**",
                         "/get-all-tags-courses", "/all-tags", "/all-courses").permitAll()
-                .antMatchers("/test/**","/note/**", "/note/**/**").permitAll()
+                .antMatchers("/test/**","/note/**", "/note/**/**", "/exam/**", "/exam/**/**").permitAll()
                 .anyRequest().authenticated();
         http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
         http.cors();
