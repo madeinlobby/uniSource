@@ -94,6 +94,8 @@ public class ExamController {
     @GetMapping("/exam/page/{number}")
     public ResponseEntity<?> getExamsWithPagination(@PathVariable int number) {
         List<ExamResponse> responses = examResponseRepository.findAll();
+        if (responses.size() == 0)
+            return ResponseEntity.ok().body(new MessageResponse("empty."));
         if (responses.size() <= (number - 1) * 10)
             return ResponseEntity.ok().body(responses.subList((number - 1) * 10, number * 10));
         else if (responses.size() > (number - 1) * 10 && responses.size() <= number * 10)
