@@ -37,6 +37,9 @@ public class ExamResponse {
     @Column(name = "file_type", nullable = false)
     private String fileType;
 
+    @Column(name = "likes", nullable = false)
+    private int likes;
+
     public ExamResponse(Course course, User uploader, Date date, List<Tag> tags, String fileName, String fileType) {
         this.course = course;
         this.uploader = uploader;
@@ -44,10 +47,11 @@ public class ExamResponse {
         this.tags = tags;
         this.fileName = fileName;
         this.fileType = fileType;
+        this.likes = 0;
     }
 
     public ExamResponse() {
-
+        this.likes = 0;
     }
 
     public int getExamId() {
@@ -104,5 +108,13 @@ public class ExamResponse {
 
     public void setFileType(String fileType) {
         this.fileType = fileType;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }

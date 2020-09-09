@@ -101,4 +101,15 @@ public class ExamController {
         else
             return ResponseEntity.badRequest().body(new MessageResponse("page is out of range."));
     }
+
+    @PutMapping("/exam/like/{id}")
+    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    public ResponseEntity<?> likeExamPost(@PathVariable int id) {
+        if (!examService.existExamById(id))
+            return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
+        Exam exam = examService.getSingleExam(id);
+        exam.setLikes(exam.getLikes() + 1);
+        examService.updateExam(exam);
+        return ResponseEntity.ok().body(new MessageResponse("post liked successfully."));
+    }
 }

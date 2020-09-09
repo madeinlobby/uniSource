@@ -28,6 +28,9 @@ public class NoteResponse {
     @Column(name = "file_type", nullable = false)
     private String fileType;
 
+    @Column(name = "likes", nullable = false)
+    private int likes;
+
     @ManyToMany
     @JoinTable(
             name = "note_tag",
@@ -42,10 +45,11 @@ public class NoteResponse {
         this.fileName = fileName;
         this.fileType = fileType;
         this.tags = tags;
+        this.likes = 0;
     }
 
     public NoteResponse() {
-
+        this.likes = 0;
     }
 
     public int getNoteId() {
@@ -102,5 +106,13 @@ public class NoteResponse {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }

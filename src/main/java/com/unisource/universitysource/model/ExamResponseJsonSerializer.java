@@ -20,6 +20,7 @@ public class ExamResponseJsonSerializer {
             jsonGenerator.writeStringField("uploader", examResponse.getUploader().getUserName());
             jsonGenerator.writeStringField("fileName", examResponse.getFileName());
             jsonGenerator.writeStringField("fileType", examResponse.getFileType());
+            jsonGenerator.writeNumberField("likes", examResponse.getLikes());
             jsonGenerator.writeArrayFieldStart("tags");
             for (Tag tag : examResponse.getTags()) {
                 jsonGenerator.writeObject(tag);

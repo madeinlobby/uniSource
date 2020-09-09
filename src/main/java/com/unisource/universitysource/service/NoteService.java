@@ -24,7 +24,10 @@ public class NoteService {
 
     public void addNote(Note newNote) {
         noteRepository.save(newNote);
+    }
 
+    public void updateNote(Note note) {
+        noteRepository.save(note);
     }
 
     public void deleteNoteById(int noteId) {

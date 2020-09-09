@@ -26,6 +26,10 @@ public class ExamService {
         examRepository.save(newExam);
     }
 
+    public void updateExam(Exam exam) {
+        examRepository.save(exam);
+    }
+
     public void deleteExamById(int examId) {
         examRepository.deleteById(examId);
     }

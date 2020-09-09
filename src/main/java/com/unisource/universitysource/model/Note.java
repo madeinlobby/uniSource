@@ -39,6 +39,9 @@ public class Note {
             inverseJoinColumns = @JoinColumn(name = "tag"))
     private List<Tag> tags;
 
+    @Column(name = "likes", nullable = false)
+    private int likes;
+
     public Note(Course course, String writer, User uploader, byte[] file, String fileName, String fileType, List<Tag> tags) {
         this.course = course;
         this.writer = writer;
@@ -47,10 +50,11 @@ public class Note {
         this.fileName = fileName;
         this.fileType = fileType;
         this.tags = tags;
+        this.likes = 0;
     }
 
     public Note() {
-
+        this.likes = 0;
     }
 
     public int getNoteId() {
@@ -115,5 +119,13 @@ public class Note {
 
     public void setTags(List<Tag> tags) {
         this.tags = tags;
+    }
+
+    public int getLikes() {
+        return likes;
+    }
+
+    public void setLikes(int likes) {
+        this.likes = likes;
     }
 }
