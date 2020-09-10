@@ -5,8 +5,10 @@ import com.unisource.universitysource.repository.ExamResponseRepository;
 import com.unisource.universitysource.service.*;
 import com.unisource.universitysource.utils.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -80,7 +82,13 @@ public class ExamController {
         if (!examService.existExamById(id))
             return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
         Exam exam = examService.getSingleExam(id);
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + exam.getFileName() + "\"").body(exam.getFile());
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=" + exam.getFileName());
+        httpHeaders.add("Cache-Control", "no-cache, no-store, must-revalidate");
+        httpHeaders.add("Pragma", "no-cache");
+        httpHeaders.add("Expires", "0");
+        ByteArrayResource byteArrayResource = new ByteArrayResource(exam.getFile());
+        return ResponseEntity.ok().headers(httpHeaders).contentType(MediaType.parseMediaType(exam.getFileType())).body(byteArrayResource);
     }
 
     @GetMapping("/exam/tags/{id}")
