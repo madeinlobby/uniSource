@@ -80,7 +80,7 @@ public class NotesController {
     }
 
     @GetMapping("/note/download/{id}")
-    @PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
+    //@PreAuthorize("hasRole('USER') or hasRole('MODERATOR') or hasRole('ADMIN')")
     public ResponseEntity<?> downloadNote(@PathVariable int id) {
         if (!noteService.existNoteById(id))
             return ResponseEntity.badRequest().body(new MessageResponse("not found note with this id"));
